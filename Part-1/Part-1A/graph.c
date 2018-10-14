@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "Graph.h"
+#include "graph.h"
 
 // to do 
 //	- implement linked list operations
@@ -22,6 +22,12 @@ typedef struct Node {
    Vertex       v;
    struct Node *next; 
 } Node;
+
+typedef struct ListRep {
+	int     nNodes;
+	Node    first;
+    Node    last;
+} ListRep;
 
 // check validity of Vertex
 int validV(Graph g, Vertex v)
@@ -87,16 +93,74 @@ bool adjacent(Graph g, Vertex x, Vertex y) {
 }
 
 // determine if item is in list
-bool inLL(Node *list, Vertex v) {
+bool inLL(List L, Vertex v) {
+    if (L->nNodes == 0) {
+        return 0;
+    }
+    else    {
+        Node *curr = L->first;
+        while (curr != NULL)  {
+            if (curr->Vertex == v)  {
+                return 1;
+            }
+            curr = curr->next;
+        }
+    }
+    return 0;
+}
 
+// create new list node
+Node *newNode (Vertex v)
+{
+	Node *n;
+	n = malloc(sizeof (struct Node));
+	assert(n != NULL);
+	n->Vertex = v;
+	n->next = NULL;
+	return n;
 }
 
 // insert new item into linked list
-Node *insertLL(Node *list, Vertex v) {
+Node *insertLL(List L, Vertex v) {
+   
+	assert(L != NULL);
+    //create new node
+	Node *n = newNode(v);
 
+	if (L->nNodes == 0)   {
+		L->first = n;
+        L->last = n;
+    }
+    else if (L->nNodes == 1)    {
+        L->last = n;
+        L->first->next = L->last;
+    }
+	else {
+		L->last->next = n;
+		L->last = n;
+	}
+	L->nNodes++;
 }
 
 // delete item from linked list
-Node *deleteLL(Node *list, Vertex v) {
-
+void *deleteLL(Node *list, Vertex v) {
+	Node *curr, *prev;
+	assert(L != NULL);
+	// find where v occurs in list
+	prev = NULL; 
+    curr = L->first;
+	while (curr != NULL && curr->Vertex != v) {
+		prev = curr;
+		curr = curr->next;
+	}
+	// unlink curr
+	if (prev == NULL)
+		L->first = curr->next;
+	else
+		prev->next = curr->next;
+	if (L->last == curr)
+		L->last = prev;
+	L->size--;
+	// remove curr
+	free(curr);
 }

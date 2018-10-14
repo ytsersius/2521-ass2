@@ -27,9 +27,11 @@ bool adjacent(Graph, Vertex, Vertex);
 void deleteGraph(Graph);
 
 // operations on linked lists - rep of adjacency vertices
-typedef Node *list;
+typedef struct Node *Node;
+typedef struct ListRep *List;
 
 bool inLL(Node *list, Vertex v);
+Node *newNode (Vertex v);
 Node *insertLL(Node *list, Vertex v);
 Node *deleteLL(Node *list, Vertex v);
 
