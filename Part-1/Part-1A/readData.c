@@ -56,7 +56,7 @@ Graph GetGraph(List url_list) {
 updateGraph(Graph g, Node *curr, FILE *url_info, int i) {
     // need to get to the relevant text (skip #section 1)
     edges[i]->v = i;
-
+    
     char *url_id;
     while (fscanf(url_info,"%s", url_id) != 0) {
         if (strstr(url_id, "url") != NULL) {
