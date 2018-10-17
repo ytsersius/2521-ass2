@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 typedef struct Node {
     Vertex v;
@@ -36,12 +37,13 @@ List deleteLL (List L, int n)   {
         return L;
     }
     if (L->v == n)  {
-        free(L->url);
-        free(L->text);
+        //free(L->url);
+        //free(L->text);
         return L->next;
     }
 
     L->next = deleteLL(L->next, n);
+	return L;
 }
 
 bool inLL(List L, int n)    {

@@ -2,6 +2,7 @@
 #define GRAPHLIST_H
 
 #include <stdbool.h>
+#include "graph.h"
 
 typedef struct Node *List;
 
