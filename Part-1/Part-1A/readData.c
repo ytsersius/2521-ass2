@@ -79,7 +79,7 @@ List newList(void) {
 
 }
 
-Node *newNode (char *url, char *text) {
+Node *newNode (char *url) {
 
     return n;
 }
