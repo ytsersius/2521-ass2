@@ -26,7 +26,7 @@ List GetCollection(void) {
     // Read the url IDs
     char *url_id;
     while (fscanf(urls,"%s", url_id) != 0) {
-            insertLL(url_list, url_id);
+        insertLL(url_list, url_id);
     }
 
     fclose(urls);
