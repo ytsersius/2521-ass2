@@ -8,47 +8,41 @@
 #include <assert.h>
 #include <string.h>
 #include "graph.h"
-
-// to do 
-//	- implement linked list operations
+#include "graphList.h"
 
 typedef struct GraphRep {
-   Node **edges;  // array of lists
+   List *edges;  // array of lists
    int    nV;     // #vertices
    int    nE;     // #edges
 } GraphRep;
 
-typedef struct Node {
-   Vertex       v;
-   struct Node *next; 
-} Node;
+Graph newGraph (int nV) {
+    assert(nV >= 0);
+    int i;
 
-typedef struct ListRep {
-	int     nNodes;
-	Node    first;
-    Node    last;
-} ListRep;
+    Graph g = malloc(sizeof(GraphRep));
+    assert (g != NULL);
+    g->nV = nV;
+    g->nE = 0;
+    g->edges = malloc(nV * sizeof(List));
+    assert(g->edges != NULL);
+    for (i = 0; i < g->nV; i++) {
+        g->edges[i] = NULL;
+    }
+    return g;
+}
 
 // check validity of Vertex
-int validV(Graph g, Vertex v)
+bool validV(Graph g, Vertex v)
 {
 	return (g != NULL && v >= 0 && v < g->nV);
 }
 
-// create an empty graph
-Graph newGraph(int V) {
-   assert(V >= 0);
-   int i;
-
-   Graph g = malloc(sizeof(GraphRep));     assert(g != NULL);
-   g->nV = V;  g->nE = 0;
-
-   // allocate memory for array of lists
-   g->edges = malloc(V * sizeof(Node *));  assert(g->edges != NULL);
-   for (i = 0; i < V; i++)
-      g->edges[i] = NULL;
-
-   return g;
+void insertEdge (Graph g, Edge e)   {
+    assert(g != NULL && validV(g, e.v) && validV(g, e.w));
+    if (!inLL(g->edges[e.v], e.w))  {   //edge e not in graph
+        g->edges[e.v] = insertLL
+    }
 }
 
 // clean up memory associated with Graph
@@ -64,16 +58,6 @@ void deleteGraph(Graph g)
 	free(g);
 }
 
-// inserts an edge
-void insertEdge(Graph g, Edge e) {
-   assert(g != NULL && validV(g,e.v) && validV(g,e.w));
-
-   if (!inLL(g->edges[e.v], e.w)) {    // edge e not in graph
-      g->edges[e.v] = insertLL(g->edges[e.v], e.w);
-      g->edges[e.w] = insertLL(g->edges[e.w], e.v);
-      g->nE++;
-   }
-}
 
 // removes an edge
 void removeEdge(Graph g, Edge e) {

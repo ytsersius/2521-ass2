@@ -6,33 +6,24 @@
 #define GRAPH_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
-// Graph rep hidden
 typedef struct GraphRep *Graph;
 
-// Function signatures
-
-// Vertexes represented as integers
 typedef int Vertex;
-int validV(Graph,Vertex); //validity check
 
-// Edges are pairs of vertices (end-points)
-typedef struct { Vertex v; Vertex w; } Edge;
+typedef struct Edge {   //when inserting, direction is from v -> w
+    Vertex v; 
+    Vertex w; 
+} Edge;
 
-// operations on graphs
-Graph newGraph(int nV);
-void insertEdge(Graph, Vertex, Vertex, int);
-void removeEdge(Graph, Vertex, Vertex);
-bool adjacent(Graph, Vertex, Vertex);
-void deleteGraph(Graph);
-
-// operations on linked lists - rep of adjacency vertices
-typedef struct Node *Node;
-typedef struct ListRep *List;
-
-bool inLL(Node *list, Vertex v);
-Node *newNode (Vertex v);
-Node *insertLL(Node *list, Vertex v);
-Node *deleteLL(Node *list, Vertex v);
+// Graph Operations
+Graph newGraph(int);
+bool validV(Graph, Vertex); //validity check
+void insertEdge(Graph, Edge);
+void removeEdge(Graph, Edge);
+bool adjacent(Graph, Vertex, Vertex); //adjacency check
+void showGraph(Graph);
+void freeGraph(Graph);
 
 #endif
