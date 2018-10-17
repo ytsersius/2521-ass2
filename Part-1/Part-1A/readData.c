@@ -36,7 +36,13 @@ List GetCollection(void) {
 
 Graph GetGraph(List url_list) {
     Graph g = newGraph(url_list->nNodes);
-    
+    Node *curr = url_list->first;
+
+    while (curr != NULL) {
+
+        fopen();
+
+    }
     return g;
 }
 
