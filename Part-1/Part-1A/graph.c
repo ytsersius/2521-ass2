@@ -56,7 +56,7 @@ void removeEdge (Graph g, Edge e)   {
     }
 }
 
-bool adjacent (Graph g, Vertex v, Verte w)   {
+bool adjacent (Graph g, Vertex v, Vertex w)   {
     assert(g != NULL && validV(g,v));
     return inLL(g->edges[v], w);
 }
