@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <string.h>
 #include "graph.h"
+#include "graphList.h"
 
 typedef struct Node {
    char        *url;
@@ -20,16 +21,16 @@ typedef struct ListRep {
 } ListRep;
 
 List GetCollection(void) {
-    FILE *urls = fopen("collection.txt", "r");
+    FILE *collection = fopen("collection.txt", "r");
     List url_list = newList();
 
     // Read the url IDs
     char *url_id;
-    while (fscanf(urls,"%s", url_id) != 0) {
+    while (fscanf(collection,"%s", url_id) != 0) {
         insertLL(url_list, url_id);
     }
 
-    fclose(urls);
+    fclose(collection);
 
     return url_list;
 }
@@ -39,11 +40,26 @@ Graph GetGraph(List url_list) {
     Node *curr = url_list->first;
 
     while (curr != NULL) {
+        char *url_fname;
+        sprintf(url_fname, "%s.txt", curr->url)
+        FILE *url_info = fopen(url_fname, "r");
+        updateGraph(url_info, g);
+        fclose(url_info);
+        curr = curr->next;
+    }
 
-        fopen();
+    return g;
+}
+
+updateGraph(FILE *url_info, Graph g) {
+    // read only relevant text
+
+    char *url_id;
+    while (fscanf(url_info,"%s", url_id) != 0) {
+
 
     }
-    return g;
+
 }
 
 // For part 1b
