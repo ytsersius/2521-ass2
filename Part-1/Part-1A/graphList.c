@@ -23,7 +23,7 @@ List insertLL (List L, Vertex v)   {
         return L;
     }
 
-    Node n = newNode(v);
+    Node *n = newNode(v);
 	n->next = L;
     return n;
 }
@@ -56,7 +56,7 @@ void showLL (List L)    {
             putchar('\n');
     }
     else    {
-        printf("%d ", L->v);
+        printf("%d - ", L->v);
         showLL(L->next);
     }
 }
