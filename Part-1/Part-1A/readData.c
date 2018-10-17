@@ -11,6 +11,7 @@
 
 typedef struct Node {
    char        *url;
+   Vertex       v;
    struct Node *next;
 } Node;
 
@@ -26,7 +27,7 @@ List GetCollection(void) {
 
     // Read the url IDs
     char *url_id;
-    while (fscanf(collection,"%s", url_id) != 0) {
+    while (fscanf(collection,"%s", url_id) != EOF) {
         insertLL(url_list, url_id);
     }
 
@@ -58,7 +59,7 @@ void updateGraph(Graph g, Node *curr, FILE *url_info, int i) {
     edges[i]->v = i;
 
     char *url_id;
-    while (fscanf(url_info,"%s", url_id) != 0) {
+    while (fscanf(url_info,"%s", url_id) != EOF) {
         if (strstr(url_id, "url") != NULL) {
             insertEdge(g, )
         }
