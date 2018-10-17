@@ -12,13 +12,13 @@ int main () {
 
     e.v = 0;
     e.w = 1;
-    insertEdge(g, e, "url1", "body1");
+    insertEdge(g, e);
     e.v = 1;
     e.w = 0;
-    insertEdge(g, e, "url2", "body2");
+    insertEdge(g, e);
     e.v = 1;
     e.w = 2;
-    insertEdge(g, e, "url3", "body3");
+    insertEdge(g, e);
 
     showGraph(g);
 

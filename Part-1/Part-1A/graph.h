@@ -20,7 +20,7 @@ typedef struct Edge {   //when inserting or deleting
 // Graph Operations
 Graph newGraph(int);
 bool validV(Graph, Vertex); //validity check
-void insertEdge(Graph, Edge, char *, char *);
+void insertEdge(Graph, Edge);
 void removeEdge(Graph, Edge);
 bool adjacent(Graph, Vertex, Vertex); //adjacency check
 void showGraph(Graph);

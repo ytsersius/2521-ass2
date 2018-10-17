@@ -26,9 +26,10 @@ Graph newGraph (int nV) {
     g->nE = 0;
     g->edges = malloc(nV * sizeof(List));
     assert(g->edges != NULL);
-    for (i = 0; i < g->nV; i++) {
-        g->edges[i] = NULL;
+    for (i = 0; i < g->nV; i++) {	//newNode needs to go here 
+        g->edges[i] = NULL;			//g->edges[i] != NULL
     }
+
     return g;
 }
 
@@ -42,7 +43,7 @@ void insertEdge (Graph g, Edge e)   {
     //from = e.v; to = e.w
     assert(g != NULL && validV(g, e.v) && validV(g, e.w));
     if (!inLL(g->edges[e.v], e.w))  {   //edge e not in graph
-        g->edges[e.v] = insertLL(g->edges[e.v], g->edges[e.w]);
+        g->edges[e.v] = insertLL(g->edges[e.v], e.w);
         g->nE++;
     }
 }
