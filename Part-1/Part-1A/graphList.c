@@ -15,8 +15,8 @@ Node *newNode (Vertex v, char *url, char* text)   {
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
     new->v = v;
-    new->url = url;
-    new->text = text;
+    new->url = strdup(url);
+    new->text = strdup(text);
     new->next = NULL;
     return new;
 }
@@ -28,8 +28,7 @@ List insertLL (List L, Vertex v, char *url, char *text)   {
 
     Node *new = newNode (v, url, text);
     new->next = L;
-    L = new;
-    return L;
+    return new;
 }
 
 List deleteLL (List L, int n)   {
@@ -37,6 +36,8 @@ List deleteLL (List L, int n)   {
         return L;
     }
     if (L->v == n)  {
+        free(L->url);
+        free(L->text);
         return L->next;
     }
 

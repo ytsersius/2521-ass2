@@ -12,8 +12,8 @@ typedef struct GraphRep *Graph;
 
 typedef int Vertex;
 
-typedef struct Edge {   //when inserting, direction is from v -> w
-    Vertex v; 
+typedef struct Edge {   //when inserting or deleting
+    Vertex v;           //from = edge.v; to = edge.w
     Vertex w; 
 } Edge;
 
