@@ -39,25 +39,29 @@ Graph GetGraph(List url_list) {
     Graph g = newGraph(url_list->nNodes);
     Node *curr = url_list->first;
 
+    int i = 0;
     while (curr != NULL) {
         char *url_fname;
         sprintf(url_fname, "%s.txt", curr->url)
         FILE *url_info = fopen(url_fname, "r");
-        updateGraph(url_info, g);
+        updateGraph(g, curr, url_info);
         fclose(url_info);
         curr = curr->next;
+        i ++;
     }
 
     return g;
 }
 
-updateGraph(FILE *url_info, Graph g) {
-    // read only relevant text
+updateGraph(Graph g, Node *curr, FILE *url_info, int i) {
+    // need to get to the relevant text (skip #section 1)
+    edges[i]->v = i;
 
     char *url_id;
     while (fscanf(url_info,"%s", url_id) != 0) {
-
-
+        if (strstr(url_id, "url") != NULL) {
+            insertEdge(g, )
+        }
     }
 
 }
