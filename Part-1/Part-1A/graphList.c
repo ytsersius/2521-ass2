@@ -7,41 +7,36 @@
 
 typedef struct Node {
     Vertex v;
-    char *url;
-    char *text;
     struct Node *next;
 } Node;
 
-Node *newNode (Vertex v, char *url, char* text)   {
+Node *newNode (Vertex v)   {
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
     new->v = v;
-    new->url = strdup(url);
-    new->text = strdup(text);
     new->next = NULL;
     return new;
 }
 
-List insertLL (List L, Node n)   {
-    if (inLL(L, n->v)) {
+List insertLL (List L, Vertex v)   {
+    if (inLL(L, v)) {
         return L;
     }
 
-    n->next = L;
+    Node n = newNode(v);
+	n->next = L;
     return n;
 }
 
-List deleteLL (List L, int n)   {
+List deleteLL (List L, Vertex v)   {
     if (L == NULL)  {
         return L;
     }
-    if (L->v == n)  {
-        //free(L->url);
-        //free(L->text);
+    if (L->v == v)  {
         return L->next;
     }
 
-    L->next = deleteLL(L->next, n);
+    L->next = deleteLL(L->next, v);
 	return L;
 }
 
