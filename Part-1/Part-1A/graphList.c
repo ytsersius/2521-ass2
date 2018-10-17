@@ -22,14 +22,13 @@ Node *newNode (Vertex v, char *url, char* text)   {
     return new;
 }
 
-List insertLL (List L, Vertex v, char *url, char *text)   {
-    if (inLL(L, v)) {
+List insertLL (List L, Node n)   {
+    if (inLL(L, n->v)) {
         return L;
     }
 
-    Node *new = newNode (v, url, text);
-    new->next = L;
-    return new;
+    n->next = L;
+    return n;
 }
 
 List deleteLL (List L, int n)   {

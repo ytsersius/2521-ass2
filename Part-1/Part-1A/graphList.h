@@ -7,7 +7,7 @@
 typedef struct Node *List;
 
 //Linked List Operations
-List insertLL(List, Vertex, char *, char *);
+List insertLL(List, Node);
 List deleteLL(List, int);
 bool inLL(List, int);
 void freeLL(List);

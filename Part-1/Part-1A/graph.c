@@ -38,11 +38,11 @@ bool validV(Graph g, Vertex v)
 	return (g != NULL && v >= 0 && v < g->nV);
 }
 
-void insertEdge (Graph g, Edge e, char *url, char *text)   {
+void insertEdge (Graph g, Edge e)   {
     //from = e.v; to = e.w
     assert(g != NULL && validV(g, e.v) && validV(g, e.w));
     if (!inLL(g->edges[e.v], e.w))  {   //edge e not in graph
-        g->edges[e.v] = insertLL(g->edges[e.v], e.w, url, text);
+        g->edges[e.v] = insertLL(g->edges[e.v], g->edges[e.w]);
         g->nE++;
     }
 }
