@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// -> Name this adjNode to avoid confusion
 typedef struct Node {
     Vertex v;
     struct Node *next;
@@ -43,7 +44,7 @@ List deleteLL (List L, Vertex v)   {
 bool inLL(List L, int n)    {
     if (L == NULL)  {
         return false;
-    }    
+    }
     if (L->v == n)  {
         return true;
     }

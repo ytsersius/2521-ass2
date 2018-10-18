@@ -11,7 +11,7 @@
 #include "graphList.h"
 
 typedef struct GraphRep {
-   List *edges;  // array of lists
+   List **edges;  // array of lists
    int    nV;     // #vertices
    int    nE;     // #edges
 } GraphRep;
@@ -26,7 +26,7 @@ Graph newGraph (int nV) {
     g->nE = 0;
     g->edges = malloc(nV * sizeof(List));
     assert(g->edges != NULL);
-    for (i = 0; i < g->nV; i++) {	//newNode needs to go here 
+    for (i = 0; i < g->nV; i++) {	//newNode needs to go here
         g->edges[i] = NULL;			//g->edges[i] != NULL
     }
 
