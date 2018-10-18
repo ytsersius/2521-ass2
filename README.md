@@ -4,7 +4,7 @@ Implementation of a simplified search engine
 By Steven Deng and Ying Zhong
 
 14/10
--Started graph ADT files.
+- Started graph ADT files.
 
 19/10
 - Finished graph ADT files
