@@ -1,8 +1,8 @@
-GRAPH ADT: Graph.c Graph.h
+GRAPH ADT: Graph.c Graph.h DONE
 
 read data: readData.c, readData.h
-- GetCollection() -> urlList
-- Graph GetGraph(urlList) -> urlGraph
+- GetCollection() -> urlList TESTING
+- Graph GetGraph(urlList) -> urlGraph TESTING
 - GetInvertedList(urlList) -> invertedList
 
 pageRank: pageRank.c, pageRank.h
@@ -10,7 +10,7 @@ pageRank: pageRank.c, pageRank.h
 - GetGraph(urlList) -> urlGraph
 - calculatePageRank
 - orderURLs
-Output to text file
+- Output to text file
 
 Inverted Index
 

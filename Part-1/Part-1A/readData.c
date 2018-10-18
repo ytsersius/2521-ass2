@@ -22,6 +22,12 @@ typedef struct SetRep {
     Node    last;
 } SetRep;
 
+// TO DO:
+// - Finish set ADT + test
+// Test GetCollection
+// Test GetGraph (might as well do it in the pageRank.c file)
+// Write invertedList
+
 Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
     Set url_list = newSet();
@@ -45,7 +51,7 @@ Set GetCollection(void) {
 // Given a set url_list build a graph out of outgoing links
 Graph GetGraph(Set url_list) {
     // Create an empty graph with nNodes vertices
-    Graph g = newGraph(url_list->nNodes);
+    Graph url_graph = newGraph(url_list->nNodes);
     Node *curr = url_list->first;
 
     // Traverse the set to read all url.txt files in the set
@@ -57,13 +63,13 @@ Graph GetGraph(Set url_list) {
         // Read the url file and add outgoing links
         FILE *url_info = fopen(url_fname, "r");
         Vertex v = curr->vID;
-        updateGraph(g, url_list, v, url_info);
+        updateGraph(url_graph, url_list, v, url_info);
         fclose(url_info);
 
         curr = curr->next;
     }
 
-    return g;
+    return url_graph;
 }
 
 // Given a url file, add outgoing links to the graph vertice
@@ -120,7 +126,12 @@ Node *insertNode(Set L, char *url, Vertex vID) {
 
 }
 
-void *deleteNode(Node *item) {
+Node *deleteNode(Set L, Vertex vID) {
+
+
+}
+
+void freeSet(Set L) {
 
     free();
 }
