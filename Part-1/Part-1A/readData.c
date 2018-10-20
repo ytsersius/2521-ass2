@@ -36,17 +36,18 @@ Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
     Set url_list = newSet();
 
-    char *url_id = calloc(100, sizeof(char));
+    char temp[100];
     // I'm not sure how to dynamically allocate memory here
 
     // Read the url IDs into a variable
     int v = 1;
-    while (fscanf(collection,"%s", url_id) != EOF) {
+    while (fscanf(collection,"%s", temp) != EOF) {
+        char *url_id = strdup(temp);
         insertNode(url_list, url_id, v);
         v ++;
     }
 
-    free (url_id);
+    free (url_id); // Do we need this?
     fclose(collection);
 
     return url_list;
@@ -61,7 +62,7 @@ Graph GetGraph(Set url_list) {
     Node *curr = url_list->first;
     while (curr != NULL) {
         // Store the url file name into a variable
-        char *url_fname = calloc(100, sizeof(char)); // same problem as above
+        char *url_fname = calloc(strlen(curr->url) + 5, sizeof(char));
         sprintf(url_fname, "%s.txt", curr->url);
 
         // Read the url file and add outgoing links
@@ -73,17 +74,20 @@ Graph GetGraph(Set url_list) {
         curr = curr->next;
     }
 
+    free(url_fname);
+
     return url_graph;
 }
 
 // Given a url file, add outgoing links to the graph vertice
 void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
-    char *out_url = calloc(100, sizeof(char));
+    char temp[100];
 
     Edge e;
     e.v = from; // This is the current operating list
     // Read the url.txt file for outgoing links (word by word)
-    while (fscanf(url_info,"%s", out_url) != EOF) {
+    while (fscanf(url_info,"%s", temp) != EOF) {
+        char *out_url = strdup(temp);
         // If found an outgoing link
         if (strstr(out_url, "url") != NULL) {
             Vertex v_out = findVertexID(url_list, out_url);
@@ -91,6 +95,8 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
             insertEdge(g, e);
         }
     }
+
+    free(out_url); // not sure we need this again
 }
 
 // Finds the vertex ID corresponding to a url
@@ -114,7 +120,7 @@ BSTree GetInvertedList(Set url_list) {
     Node *curr = url_list->first;
     while (curr != NULL) {
         // Store the url file name into a variable
-        char *url_fname = calloc(100, sizeof(char));
+        char *url_fname = calloc(strlen(curr->url) + 5, sizeof(char));
         sprintf(url_fname, "%s.txt", curr->url);
 
         // Read url.txt file
@@ -124,6 +130,8 @@ BSTree GetInvertedList(Set url_list) {
 
         curr = curr->next;
     }
+
+    free(url_fname);
 
     return inv_tree;
 }
@@ -141,10 +149,12 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
         BSTNode *t = BSTreeFind(inv_tree, word));
         t->urlSet = insertNode(inv_tree->urlSet, url);
     }
+    
+    free(word);
 }
 
-
 char *normalise(char *word) {
+    int size = strlen(word);
     // we aren't going to have whitespaces anyway
     // because fscanf only reads up to a whitespace
     int i = 0;
@@ -157,11 +167,11 @@ char *normalise(char *word) {
 
     word = ptr;
 
-    while (!isspace(word[i])) {
+    while (!isspace(word[i]) && i < size) {
         i ++; // crappy implementation - change if u want
     }
 
-    word[i] = '\0'
+    word[i] = '\0';
 
     // Convert all upper case to lower case
     i = 0;
@@ -172,13 +182,13 @@ char *normalise(char *word) {
         }
         i ++;
     }
+
     // Remove ending punctuation marks
-    int size = strlen(word);
     if (word[size] != '.' && word[size] != ','
         && word[size] != ';' && word[size] != '?') {
             word[size] = '\0';
         }
-        
+
     return word;
 }
 
