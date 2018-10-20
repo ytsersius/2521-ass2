@@ -13,7 +13,7 @@ BSTree newBSTree();
 // free memory associated with BSTree
 void dropBSTree(BSTree);
 // display BSTree root node
-void showBSTreeNode(BSTree);
+void showBSTreeNode(BSTree, FILE *);
 
 // print values in infix order
 void BSTreeInfix(BSTree);

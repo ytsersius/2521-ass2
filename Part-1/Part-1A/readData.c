@@ -30,7 +30,7 @@ typedef struct SetRep {
 // - Finish set ADT + test
 // - Test GetCollection
 // - Test GetGraph (might as well do it in the pageRank.c file)
-// - Write invertedList
+// - Test GetInvertedList (do this in invertedIndex.c)
 
 Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
@@ -113,7 +113,7 @@ Vertex findVertexID(Set url_list, char *url) {
     return 0;
 }
 
-// For part 1b
+// Given a url list, generate an invertedList
 BSTree GetInvertedList(Set url_list) {
     BSTree inv_tree = newBSTree();
 
@@ -149,7 +149,7 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
         BSTNode *t = BSTreeFind(inv_tree, word));
         t->urlSet = insertNode(inv_tree->urlSet, url);
     }
-    
+
     free(word);
 }
 

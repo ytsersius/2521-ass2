@@ -1,4 +1,4 @@
-// This ADT is appended to the end of BSTree
+// This ADT is appended to the end of BSTree andcan be deleted
 #include "BStree.h"
 #include <assert.h>
 #include <stdlib.h>

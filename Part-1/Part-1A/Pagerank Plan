@@ -5,7 +5,7 @@ SET ADT: Set.c Set.h
 read data: readData.c, readData.h
 - GetCollection() -> urlList TESTING
 - Graph GetGraph(urlList) -> urlGraph TESTING
-- GetInvertedList(urlList) -> invertedList WRITING
+- GetInvertedList(urlList) -> invertedList TESTING
 
 pageRank: pageRank.c, pageRank.h
 - GetCollection() -> urlList
@@ -14,6 +14,10 @@ pageRank: pageRank.c, pageRank.h
 - orderURLs
 - Output to text file
 
-Inverted Index
+inverted.c DONE
+main ()
+- GetCollection() -> urlList
+- GetInvertedList(urlList) -> invertedList
+- BSTreeInfix(invertedList, invertexIndex.txt)
 
 searchPageRank

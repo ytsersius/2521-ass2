@@ -13,6 +13,7 @@ typedef struct BSTNode *BSTLink;
 typedef struct BSTNode {
 	char *key;
 	BSTSet urlSet;
+
 	BSTLink left;
 	BSTLink right;
 } BSTNode;
@@ -49,43 +50,45 @@ void dropBSTree(BSTree t)
 }
 
 // display BSTree root node
-void showBSTreeNode(BSTree t)
+void showBSTreeNode(BSTree t, FILE *stream)
 {
 	if (t == NULL) return;
-	printf("%s ", t->key);
+	fprintf(stream, "%s ", t->key);
 
 	SetNode *curr = t->urlSet;
 	while (curr != NULL) {
-		printf("%s ", curr->url);
+		fprintf(stream, "%s ", curr->url);
 		curr = curr->next;
 	}
+
+	fprintf(stream, "\n");
 }
 
 // print values in infix order
-void BSTreeInfix(BSTree t)
+void BSTreeInfix(BSTree t, FILE *stream)
 {
 	if (t == NULL) return;
-	BSTreeInfix(t->left);
-	showBSTreeNode(t);
-	BSTreeInfix(t->right);
+	BSTreeInfix(t->left, stream);
+	showBSTreeNode(t, stream);
+	BSTreeInfix(t->right, stream);
 }
 
 // print values in prefix order
-void BSTreePrefix(BSTree t)
+void BSTreePrefix(BSTree t, FILE *stream)
 {
 	if (t == NULL) return;
-	showBSTreeNode(t);
-	BSTreePrefix(t->left);
-	BSTreePrefix(t->right);
+	showBSTreeNode(t, stream);
+	BSTreePrefix(t->left, stream);
+	BSTreePrefix(t->right, stream);
 }
 
 // print values in postfix order
-void BSTreePostfix(BSTree t)
+void BSTreePostfix(BSTree t, FILE *stream)
 {
 	if (t == NULL) return;
-	BSTreePostfix(t->left);
-	BSTreePostfix(t->right);
-	showBSTreeNode(t);
+	BSTreePostfix(t->left, stream);
+	BSTreePostfix(t->right, stream);
+	showBSTreeNode(t, stream);
 }
 
 // count #nodes in BSTree
