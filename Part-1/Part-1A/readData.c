@@ -145,17 +145,26 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
 
 
 char *normalise(char *word) {
-    int size = strlen(word);
-    if (isspace(word[0]) {
-
+    // we aren't going to have whitespaces anyway
+    // because fscanf only reads up to a whitespace
+    int i = 0;
+    char *ptr = word;
+    while (isspace(word[i]) {
+        word[i] = '\0';
+        ptr ++;
+        i ++;
     }
 
-    else if (isspace(word[size])) {
+    word = ptr;
 
+    while (!isspace(word[i])) {
+        i ++; // crappy implementation - change if u want
     }
+
+    word[i] = '\0'
 
     // Convert all upper case to lower case
-    int i = 0;
+    i = 0;
     while (word[i] != '\0') {
         if (word[i] >= 'A' && word[i] <= 'Z'){
             int offset = word[i] -'A';
@@ -163,12 +172,13 @@ char *normalise(char *word) {
         }
         i ++;
     }
-
-    if (word[size] == '.' || word[size] == ','
-        || word[size] == ';' || word[size] == '?') {
-
+    // Remove ending punctuation marks
+    int size = strlen(word);
+    if (word[size] != '.' && word[size] != ','
+        && word[size] != ';' && word[size] != '?') {
+            word[size] = '\0';
         }
-
+        
     return word;
 }
 
