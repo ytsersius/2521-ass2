@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include <ctype.h>
+
 #include "graph.h"
 #include "graphList.h"
 #include "Set.h"
@@ -117,7 +119,7 @@ BSTree GetInvertedList(Set url_list) {
 
         // Read url.txt file
         FILE *url_info = fopen(url_fname, "r");
-        updateInvertedIndex(inv_tree, url_info);
+        updateInvertedIndex(inv_tree, url_info, curr->url);
         fclose(url_info);
 
         curr = curr->next;
@@ -126,16 +128,48 @@ BSTree GetInvertedList(Set url_list) {
     return inv_tree;
 }
 
-void updateInvertedIndex(BSTree inv_tree, FILE *url_info) {
+void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
     char temp[100]; // temporary text buffer
 
     // Read url.txt file for words
     while (fscanf(url_info, "%s", temp) != EOF) {
         char *word = strdup(temp);
-        
+        word = normalise(word);
+        // insert key into tree
+        inv_tree = BSTreeInsert(inv_tree, word);
+        // insert url into urlSet at the right node
+        BSTNode *t = BSTreeFind(inv_tree, word));
+        t->urlSet = insertNode(inv_tree->urlSet, url);
+    }
+}
+
+
+char *normalise(char *word) {
+    int size = strlen(word);
+    if (isspace(word[0]) {
+
     }
 
+    else if (isspace(word[size])) {
 
+    }
+
+    // Convert all upper case to lower case
+    int i = 0;
+    while (word[i] != '\0') {
+        if (word[i] >= 'A' && word[i] <= 'Z'){
+            int offset = word[i] -'A';
+            word[i] = 'a' + offset;
+        }
+        i ++;
+    }
+
+    if (word[size] == '.' || word[size] == ','
+        || word[size] == ';' || word[size] == '?') {
+
+        }
+
+    return word;
 }
 
 // create an empty set

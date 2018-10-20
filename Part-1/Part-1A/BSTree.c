@@ -12,7 +12,7 @@ typedef struct BSTNode *BSTLink;
 
 typedef struct BSTNode {
 	char *key;
-	SetNode *urlSet;
+	BSTSet urlSet;
 	BSTLink left;
 	BSTLink right;
 } BSTNode;
@@ -117,13 +117,13 @@ BSTree BSTreeInsert(BSTree t, char *word)
 		t->left = BSTreeInsert(t->left, word);
 	else if (strcmp(word, t->key) > 0)
 		t->right = BSTreeInsert(t->right, word);
-	else // (v == t->value)
+	else
 		/* don't insert duplicates */;
 	return t;
 }
 
-// check whether a value is in a BSTree
-int BSTreeFind(BSTree t, char *word)
+// find a value in a BSTree and return the node
+BSTNode *BSTreeFind(BSTree t, char *word)
 {
 	if (t == NULL)
 		return 0;
@@ -135,7 +135,7 @@ int BSTreeFind(BSTree t, char *word)
 		return BSTreeFind(t->right, word);
 
 	else // (v == t->value)
-		return 1;
+		return t;
 }
 
 // delete root of tree
