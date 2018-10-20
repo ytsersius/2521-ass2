@@ -1,5 +1,5 @@
 GRAPH ADT: graph.c graph.h DONE
-TREE ADT: SetBSTree.c SetBSTree.h WRITING
+TREE ADT: BSTree.c BSTree.h TESTING
 SET ADT: Set.c Set.h
 
 read data: readData.c, readData.h

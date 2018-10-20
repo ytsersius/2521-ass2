@@ -1,4 +1,4 @@
-// Interface to SetBSTree adjacent
+// Interface to BSTree
 // Completed with code from COMP2521 week10 lab exercise
 // Written by Steven Deng and Ying Zhong, October 2018
 
@@ -33,5 +33,10 @@ BSTree BSTreeInsert(BSTree, char *);
 int BSTreeFind(BSTree, char *);
 // delete a value from a BSTree
 BSTree BSTreeDelete(BSTree, char *);
+
+// Set operations
+Set insertNode (Set, char *);
+Set deleteNode (Set, char *);
+void freeSet(Set);
 
 #endif

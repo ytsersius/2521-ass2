@@ -11,7 +11,7 @@ typedef struct Node {
     struct Node *next;
 } Node;
 
-Node *newNode (Vertex v)   {
+static Node *newNode (Vertex v)   {
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
     new->v = v;
