@@ -12,8 +12,6 @@ typedef struct SetNode *Set;
 BSTree newBSTree();
 // free memory associated with BSTree
 void dropBSTree(BSTree);
-// display a BSTree
-void showBSTree(BSTree);
 // display BSTree root node
 void showBSTreeNode(BSTree);
 
@@ -30,10 +28,10 @@ int BSTreeNumNodes(BSTree);
 int BSTreeNumLeaves(BSTree);
 
 // insert a new value into a BSTree
-BSTree BSTreeInsert(BSTree, int);
+BSTree BSTreeInsert(BSTree, char *);
 // check whether a value is in a BSTree
-int BSTreeFind(BSTree, int);
+int BSTreeFind(BSTree, char *);
 // delete a value from a BSTree
-BSTree BSTreeDelete(BSTree, int);
+BSTree BSTreeDelete(BSTree, char *);
 
 #endif

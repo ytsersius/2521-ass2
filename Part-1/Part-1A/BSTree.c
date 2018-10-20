@@ -23,11 +23,12 @@ typedef struct SetNode {
 } SetNode;
 
 // make a new node containing a value
-static BSTLink newBSTNode(int v)
+static BSTLink newBSTNode(char *word)
 {
 	BSTLink new = malloc(sizeof(BSTNode));
 	assert(new != NULL);
-	new->value = v;
+	new->key = strcpy(new->key, word);
+	new->urlSet = NULL;
 	new->left = new->right = NULL;
 	return new;
 }
@@ -45,13 +46,6 @@ void dropBSTree(BSTree t)
 	dropBSTree(t->left);
 	dropBSTree(t->right);
 	free(t);
-}
-
-// display a BSTree
-void showBSTree(BSTree t)
-{
-	void doShowBSTree(BSTree); // see later
-	doShowBSTree(t);
 }
 
 // display BSTree root node
@@ -101,28 +95,6 @@ int BSTreeNumNodes(BSTree t)
 // count #leaves in BSTree
 int BSTreeNumLeaves(BSTree t)
 {
-	int count = 0;
-
-	if (t == NULL) return 0;
-
-	if (t->left == NULL && t->right == NULL) {
-		count ++;
-	}
-
-	if (t->left != NULL) {
-		count = count + BSTreeNumLeaves(t->left);
-	}
-
-	if (t->right != NULL) {
-		count = count + BSTreeNumLeaves(t->right);
-	}
-
-	return count;
-}
-
-
-int BSTreeNumLeaves(BSTree t)
-{
 	if (t == NULL) {
 		return 0;
 	} else {
@@ -131,28 +103,31 @@ int BSTreeNumLeaves(BSTree t)
 }
 
 // insert a new value into a BSTree
-BSTree BSTreeInsert(BSTree t, int v)
+BSTree BSTreeInsert(BSTree t, char *word)
 {
 	if (t == NULL)
-		return newBSTNode(v);
-	else if (v < t->value)
-		t->left = BSTreeInsert(t->left, v);
-	else if (v > t->value)
-		t->right = BSTreeInsert(t->right, v);
+		return newBSTNode(word);
+	else if (strcmp(word, t->key) < 0)
+		t->left = BSTreeInsert(t->left, word);
+	else if (strcmp(word, t->key) > 0)
+		t->right = BSTreeInsert(t->right, word);
 	else // (v == t->value)
 		/* don't insert duplicates */;
 	return t;
 }
 
 // check whether a value is in a BSTree
-int BSTreeFind(BSTree t, int v)
+int BSTreeFind(BSTree t, char *word)
 {
 	if (t == NULL)
 		return 0;
-	else if (v < t->value)
-		return BSTreeFind(t->left, v);
-	else if (v > t->value)
-		return BSTreeFind(t->right, v);
+
+	else if (strcmp(word, t->key) < 0)
+		return BSTreeFind(t->left, word);
+
+	else if (strcmp(word, t->key) > 0)
+		return BSTreeFind(t->right, word);
+
 	else // (v == t->value)
 		return 1;
 }
@@ -199,15 +174,15 @@ BSTree deleteRoot(BSTree t)
 }
 
 // delete a value from a BSTree
-BSTree BSTreeDelete(BSTree t, int v)
+BSTree BSTreeDelete(BSTree t, char *word)
 {
 	if (t == NULL)
 		return NULL;
-	else if (v < t->value)
-		t->left = BSTreeDelete(t->left, v);
-	else if (v > t->value)
-		t->right = BSTreeDelete(t->right, v);
-	else // (v == t->value)
+	else if (strcmp(word, t->key) < 0)
+		t->left = BSTreeDelete(t->left, word);
+	else if (strcmp(word, t->key) > 0)
+		t->right = BSTreeDelete(t->right, word);
+	else // (word == t->key)
 		t = deleteRoot(t);
 	return t;
 }
