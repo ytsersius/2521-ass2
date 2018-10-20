@@ -34,7 +34,7 @@ Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
     Set url_list = newSet();
 
-    char *url_id = calloc(6, sizeof(char));
+    char *url_id = calloc(100, sizeof(char));
     // I'm not sure how to dynamically allocate memory here
 
     // Read the url IDs into a variable
@@ -54,12 +54,12 @@ Set GetCollection(void) {
 Graph GetGraph(Set url_list) {
     // Create an empty graph with nNodes vertices
     Graph url_graph = newGraph(url_list->nNodes);
-    Node *curr = url_list->first;
 
     // Traverse the set to read all url.txt files in the set
+    Node *curr = url_list->first;
     while (curr != NULL) {
         // Store the url file name into a variable
-        char *url_fname = calloc(10, sizeof(char)); // same problem as above
+        char *url_fname = calloc(100, sizeof(char)); // same problem as above
         sprintf(url_fname, "%s.txt", curr->url);
 
         // Read the url file and add outgoing links
@@ -76,7 +76,7 @@ Graph GetGraph(Set url_list) {
 
 // Given a url file, add outgoing links to the graph vertice
 void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
-    char *out_url = calloc(6, sizeof(char));
+    char *out_url = calloc(100, sizeof(char));
 
     Edge e;
     e.v = from; // This is the current operating list
@@ -107,9 +107,35 @@ Vertex findVertexID(Set url_list, char *url) {
 
 // For part 1b
 BSTree GetInvertedList(Set url_list) {
-    // Create empty inverted list
-    // For each url
-        // Read url.txt file and update inverted index
+    BSTree inv_tree = newBSTree();
+
+    Node *curr = url_list->first;
+    while (curr != NULL) {
+        // Store the url file name into a variable
+        char *url_fname = calloc(100, sizeof(char));
+        sprintf(url_fname, "%s.txt", curr->url);
+
+        // Read url.txt file
+        FILE *url_info = fopen(url_fname, "r");
+        updateInvertedIndex(inv_tree, url_info);
+        fclose(url_info);
+
+        curr = curr->next;
+    }
+
+    return inv_tree;
+}
+
+void updateInvertedIndex(BSTree inv_tree, FILE *url_info) {
+    char temp[100]; // temporary text buffer
+
+    // Read url.txt file for words
+    while (fscanf(url_info, "%s", temp) != EOF) {
+        char *word = strdup(temp);
+        
+    }
+
+
 }
 
 // create an empty set

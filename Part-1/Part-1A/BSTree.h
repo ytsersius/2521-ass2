@@ -7,7 +7,7 @@
 
 typedef struct BSTNode *BSTree;
 
-typedef struct SetNode *Set;
+typedef struct SetNode *BSTSet;
 // create an empty BSTree
 BSTree newBSTree();
 // free memory associated with BSTree
@@ -35,8 +35,8 @@ int BSTreeFind(BSTree, char *);
 BSTree BSTreeDelete(BSTree, char *);
 
 // Set operations
-Set insertNode (Set, char *);
-Set deleteNode (Set, char *);
-void freeSet(Set);
+BSTSet insertNode (BSTSet, char *);
+BSTSet deleteNode (BSTSet, char *);
+void freeSet(BSTSet);
 
 #endif

@@ -52,7 +52,13 @@ void dropBSTree(BSTree t)
 void showBSTreeNode(BSTree t)
 {
 	if (t == NULL) return;
-	printf("%d ", t->value);
+	printf("%s ", t->key);
+
+	SetNode *curr = t->urlSet;
+	while (curr != NULL) {
+		printf("%s ", curr->url);
+		curr = curr->next;
+	}
 }
 
 // print values in infix order
@@ -196,7 +202,7 @@ static SetNode *newNode (char *url)   {
 }
 
 // Sorted node insert
-Set insertNode (Set S, char *url)   {
+BSTSet insertNode (BSTSet S, char *url)   {
     if (S == NULL)
         return newNode(url);
     if (strcmp(url, S->url) < 0)
@@ -210,7 +216,7 @@ Set insertNode (Set S, char *url)   {
     return S;
 }
 
-Set deleteNode (Set S, char *url)   {
+BSTSet deleteNode (BSTSet S, char *url)   {
     if (S == NULL)  {
         return S;
     }
@@ -225,7 +231,7 @@ Set deleteNode (Set S, char *url)   {
 	return S;
 }
 
-void freeSet(Set S) {
+void freeSet(BSTSet S) {
     if (S != NULL)  {
         freeSet(S->next);
         free(S);
