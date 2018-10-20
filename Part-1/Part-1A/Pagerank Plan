@@ -1,9 +1,11 @@
-GRAPH ADT: Graph.c Graph.h DONE
+GRAPH ADT: graph.c graph.h DONE
+TREE ADT: SetBSTree.c SetBSTree.h WRITING
+SET ADT: Set.c Set.h
 
 read data: readData.c, readData.h
 - GetCollection() -> urlList TESTING
 - Graph GetGraph(urlList) -> urlGraph TESTING
-- GetInvertedList(urlList) -> invertedList
+- GetInvertedList(urlList) -> invertedList WRITING
 
 pageRank: pageRank.c, pageRank.h
 - GetCollection() -> urlList

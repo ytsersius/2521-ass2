@@ -8,6 +8,8 @@
 #include <string.h>
 #include "graph.h"
 #include "graphList.h"
+#include "Set.h"
+#include "BSTree.h"
 
 typedef struct Node {
    char        *url;
@@ -24,9 +26,9 @@ typedef struct SetRep {
 
 // TO DO:
 // - Finish set ADT + test
-// Test GetCollection
-// Test GetGraph (might as well do it in the pageRank.c file)
-// Write invertedList
+// - Test GetCollection
+// - Test GetGraph (might as well do it in the pageRank.c file)
+// - Write invertedList
 
 Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
@@ -104,7 +106,7 @@ Vertex findVertexID(Set url_list, char *url) {
 }
 
 // For part 1b
-BSTree GetInvertedList(List url_list) {
+BSTree GetInvertedList(Set url_list) {
     // Create empty inverted list
     // For each url
         // Read url.txt file and update inverted index
