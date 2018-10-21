@@ -50,7 +50,7 @@ void freeSet(Set s) {
 }
 
 
-void SetInsert(Set s, char * url) {
+void SetInsert(Set s, char *url) {
     assert(isValid(s));
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
