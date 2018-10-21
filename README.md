@@ -16,8 +16,9 @@ By Steven Deng and Ying Zhong
 - Written invertedList
 
 
-Part 1a To do:
+Part 1 To do:
  - Test GetGraph (might as well do it in the pageRank.c file)
  - Test BSTree ADT
  - Test GetInvertedList ()
  - Test inverted.c
+ - Write Part 1-c
