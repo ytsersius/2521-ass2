@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     while (fscanf(inv_idx, "%s", temp) != EOF) {
         char *word = malloc(strlen(temp) + 1);
         memcpy(word, temp, strlen(temp));
-        // if found, store urls for that match
+        // if found, store urls for that word
         if (isMatch(word, argv)) {
             GetMatchedURLs(inv_idx, matched_urls, word);
         }
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 
     // for each group, starting from max
         // for each url
-            // find page rank
+            // find page rank (input in array?)
         // sort urls by pagerank
 
     // output sorted urls less than 30

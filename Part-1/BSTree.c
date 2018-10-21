@@ -53,7 +53,7 @@ void dropBSTree(BSTree t)
 void showBSTreeNode(BSTree t, FILE *stream)
 {
 	if (t == NULL) return;
-	fprintf(stream, "%s ", t->key);
+	fprintf(stream, "%s  ", t->key);
 
 	SetNode *curr = t->urlSet;
 	while (curr != NULL) {
