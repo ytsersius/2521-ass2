@@ -10,21 +10,9 @@
 
 #include "graph.h"
 #include "graphList.h"
-#include "Set.h"
+#include "setList.h"
 #include "BSTree.h"
 
-typedef struct Node {
-   char        *url;
-   Vertex       vID;
-   struct Node *next;
-} Node;
-
-// -> Use struct set instead of list
-typedef struct SetRep {
-	int     nNodes;
-	Node    first;
-    Node    last;
-} SetRep;
 
 // TO DO:
 // - Finish set ADT + test
@@ -43,11 +31,11 @@ Set GetCollection(void) {
     int v = 1;
     while (fscanf(collection,"%s", temp) != EOF) {
         char *url_id = strdup(temp);
-        insertNode(url_list, url_id, v);
+        SetInsert(url_list, url_id, v);
         v ++;
     }
 
-    free (url_id); // Do we need this?
+    //free (url_id); // Do we need this?
     fclose(collection);
 
     return url_list;
@@ -96,7 +84,7 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
         }
     }
 
-    free(out_url); // not sure we need this again
+    //free(out_url); // not sure we need this again
 }
 
 // Finds the vertex ID corresponding to a url
@@ -147,7 +135,7 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
         inv_tree = BSTreeInsert(inv_tree, word);
         // insert url into urlSet at the right node
         BSTNode *t = BSTreeFind(inv_tree, word));
-        t->urlSet = insertNode(inv_tree->urlSet, url);
+        t->urlSet = SetInsert(inv_tree->urlSet, url);
     }
 
     free(word);
@@ -192,28 +180,4 @@ char *normalise(char *word) {
     return word;
 }
 
-// create an empty set
-Set newSet(void) {
 
-
-}
-
-Node *newNode (char *url, Vertex vID) {
-
-    return n;
-}
-
-Node *insertNode(Set L, char *url, Vertex vID) {
-
-
-}
-
-Node *deleteNode(Set L, Vertex vID) {
-
-
-}
-
-void freeSet(Set L) {
-
-    free();
-}
