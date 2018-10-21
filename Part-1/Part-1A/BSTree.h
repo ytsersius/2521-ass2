@@ -5,6 +5,8 @@
 #ifndef BSTREE_H
 #define BSTREE_H
 
+#include <stdio.h>
+
 typedef struct BSTNode *BSTree;
 
 typedef struct SetNode *BSTSet;

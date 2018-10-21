@@ -6,8 +6,6 @@
 
 #include <stdio.h>
 
-typedef struct SetRep *Set;
-
 // readData functions
 Set GetCollection(void);
 Graph GetGraph(Set);
@@ -16,12 +14,5 @@ Vertex findVertexID(Set, char *);
 BSTree GetInvertedList(List url_list);
 void updateInvertedIndex(BSTree, FILE *);
 char *normalise(char *);
-
-// Set ADT functions
-Set newSet(void);
-Node *newNode(char *, Vertex);
-Node *insertNode(Set, char *, Vertex);
-Node *deleteNode(Set, Vertex);
-void freeSet(Set);
 
 #endif

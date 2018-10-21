@@ -6,17 +6,18 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include "graph.h"
 
 typedef struct SetRep *Set;
 
-Set newSet();   //create new set
+typedef int Vertex;
+
+Set newSet(void);   //create new set
 
 void freeSet(Set);  //free set memory
 
 void SetInsert(Set, char *);   //add value into set
 
-void SetDelete(Set);    //remove value from set
+void SetDelete(Set, char *);    //remove value from set
 
 void showSet(Set);
 

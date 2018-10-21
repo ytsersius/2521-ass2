@@ -25,11 +25,10 @@ Set GetCollection(void) {
     Set url_list = newSet();
 
     char temp[100];
-    // I'm not sure how to dynamically allocate memory here
-
     // Read the url IDs into a variable
     while (fscanf(collection,"%s", temp) != EOF) {
-        char *url_id = strdup(temp);
+        char *url_id = malloc(strlen(temp) + 1);
+        memcpy(url_id, temp, strlen(temp));
         SetInsert(url_list, url_id);
     }
 
@@ -73,7 +72,8 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
     e.v = from; // This is the current operating list
     // Read the url.txt file for outgoing links (word by word)
     while (fscanf(url_info,"%s", temp) != EOF) {
-        char *out_url = strdup(temp);
+        char *out_url = malloc(strlen(temp) + 1);
+        memcpy(out_url, temp, strlen(temp));
         // If found an outgoing link
         if (strstr(out_url, "url") != NULL) {
             Vertex v_out = findVertexID(url_list, out_url);
@@ -127,7 +127,8 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
 
     // Read url.txt file for words
     while (fscanf(url_info, "%s", temp) != EOF) {
-        char *word = strdup(temp);
+        char *word = malloc(strlen(temp) + 1);
+        memcpy(word, temp, strlen(temp));
         word = normalise(word);
         // insert key into tree
         inv_tree = BSTreeInsert(inv_tree, word);
@@ -177,5 +178,3 @@ char *normalise(char *word) {
 
     return word;
 }
-
-

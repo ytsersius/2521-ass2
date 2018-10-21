@@ -1,4 +1,4 @@
-// Set List implementation for readData.c function: 
+// Set List implementation for readData.c function:
 // Set GetCollection (void);
 // Written by Steven Deng and Ying Zhong, October 2018
 
@@ -39,12 +39,12 @@ Set newSet()    {
     s->nelems = 0;
     s->elems = NULL;
     return s;
-} 
+}
 
 void freeSet(Set s) {
     assert(s != NULL);
     while (s->elems != NULL)    {
-        SetDelete(s);
+        freeSet(s);
     }
     free(s);
 }
@@ -61,7 +61,7 @@ void SetInsert(Set s, char *url) {
 	s->nelems++;
 }
 
-void SetDelete(Set s) {
+void SetDelete(Set s, char *url) {
 }
 
 void showSet(Set s) {
@@ -72,5 +72,5 @@ void showSet(Set s) {
         printf("vID = %d - %s\n", curr->vID, curr->url);
     }
     printf("}\n");
-	printf("%d\n", s->nelems);
+	printf("Size of the set: %d\n", s->nelems);
 }

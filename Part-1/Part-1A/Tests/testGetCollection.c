@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include <ctype.h>
 #include "setList.h"
 
 void GetCollection(Set s) {
@@ -11,12 +10,12 @@ void GetCollection(Set s) {
     //Set s = newSet();
 
     char temp[100];
-	char *url_id;
-    // I'm not sure how to dynamically allocate memory here
+
 
     // Read the url IDs into a variable
     while (fscanf(collection, "%s", temp) != EOF) {
-        url_id = temp;
+        char *url_id = malloc(strlen(temp) + 1);
+        memcpy(url_id, temp, strlen(temp));
 		printf("%s\n", url_id);
         SetInsert(s, url_id);
     }
@@ -30,4 +29,6 @@ int main()  {
     Set s = newSet();
 	GetCollection(s);
     showSet(s);
+
+    return 0;
 }

@@ -1,9 +1,9 @@
 GRAPH ADT: graph.c graph.h DONE
 INVERTED INDEX/ TREE ADT: BSTree.c BSTree.h TESTING
-SET ADT: Set.c Set.h
+SET ADT: Set.c Set.h DONE
 
 read data: readData.c, readData.h
-- GetCollection() -> urlList TESTING
+- GetCollection() -> urlList DONE
 - Graph GetGraph(urlList) -> urlGraph TESTING
 - GetInvertedList(urlList) -> invertedList TESTING
 
