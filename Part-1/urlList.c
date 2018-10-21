@@ -1,23 +1,18 @@
-#include "graphList.h"
-#include "graph.h"
-#include <assert.h>
+// url List implementation for searchPageRank.c function:
+// Written by Steven Deng and Ying Zhong, October 2018
+
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include <string.h>
+#include "urlList.h"
 
-// -> Name this adjNode to avoid confusion
-typedef struct adjNode {
-    Vertex v;
-    struct adjNode *next;
-} adjNode;
-
-static adjNode *newNode (Vertex v)   {
-    adjNode *new = malloc(sizeof(adjNode));
-    assert(new != NULL);
-    new->v = v;
-    new->next = NULL;
-    return new;
-}
+typedef struct URLNode {
+   char        *link;
+   int          matches;
+   double       pageRank;
+   struct URLNode   *next;
+} URLNode;
 
 List insertLL (List L, Vertex v)   {
     if (inLL(L, v)) {

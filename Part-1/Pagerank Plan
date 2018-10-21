@@ -1,5 +1,5 @@
 GRAPH ADT: graph.c graph.h DONE
-INVERTED INDEX/ TREE ADT: BSTree.c BSTree.h TESTING
+TREE ADT: BSTree.c BSTree.h TESTING
 SET ADT: Set.c Set.h DONE
 
 read data: readData.c, readData.h

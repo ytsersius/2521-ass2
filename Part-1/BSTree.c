@@ -20,7 +20,7 @@ typedef struct BSTNode {
 
 typedef struct SetNode {
    char        *url;
-   struct Node *next;
+   struct SetNode *next;
 } SetNode;
 
 // make a new node containing a value

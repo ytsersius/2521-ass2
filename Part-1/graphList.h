@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "graph.h"
 
-typedef struct Node *List;
+typedef struct adjNode *List;
 
 //Linked List Operations
 List insertLL(List, Vertex);
