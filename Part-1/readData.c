@@ -71,7 +71,7 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
     Edge e;
     e.v = from; // This is the current operating list
     // Read the url.txt file for outgoing links (word by word)
-    while (fscanf(url_info,"%s", temp) != EOF) {
+    while (fscanf(url_info, "%s", temp) != EOF) {
         char *out_url = malloc(strlen(temp) + 1);
         memcpy(out_url, temp, strlen(temp));
         // If found an outgoing link
