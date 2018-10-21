@@ -8,20 +8,17 @@ int main()  {
     Set s = newSet();
 
     char *url = "url0";
-    Vertex vID = 0;
-    SetInsert(s, url, vID);
+    SetInsert(s, url);
 
     url = "url1";
-    vID = 1;
-    SetInsert(s, url, vID);
+    SetInsert(s, url);
 
     url = "url2";
-    vID = 2;
-    SetInsert(s, url, vID);
+    SetInsert(s, url);
 
     url = "url3";
-    vID = 3;
-    SetInsert(s, url, vID);
+    SetInsert(s, url);
 
+	//SetDelete(s);
     showSet(s);
 }

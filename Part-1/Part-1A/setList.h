@@ -14,7 +14,7 @@ Set newSet();   //create new set
 
 void freeSet(Set);  //free set memory
 
-void SetInsert(Set, char *, Vertex);   //add value into set
+void SetInsert(Set, char *);   //add value into set
 
 void SetDelete(Set);    //remove value from set
 

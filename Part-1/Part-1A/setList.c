@@ -50,14 +50,15 @@ void freeSet(Set s) {
 }
 
 
-void SetInsert(Set s, char * url, Vertex vID) {
+void SetInsert(Set s, char * url) {
     assert(isValid(s));
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
     new->url = url;
-    new->vID = vID;
+    new->vID = s->nelems+1;
     new->next = s->elems;
     s->elems = new;
+	s->nelems++;
 }
 
 void SetDelete(Set s) {
@@ -68,21 +69,21 @@ void SetDelete(Set s) {
     }
     else    {
         Node *curr = s->elems;
-        s->elems = s->elems->next;
-        free(curr);
+        while (curr->next->next != NULL)	{
+			curr = curr->next;
+		}
+		free(curr->next);
         s->elems--;
     }    
 }
 
 void showSet(Set s) {
     assert(isValid(s));
-    printf("{");
+    printf("Show Set:\n{\n");
     Node *curr;
     for (curr = s->elems; curr != NULL; curr = curr->next)  {
-        printf("%d-%s", curr->vID, curr->url);
-        if (curr->next != NULL) {
-            printf(",");
-        }
+        printf("vID = %d - %s\n", curr->vID, curr->url);
     }
-    printf("}");
+    printf("}\n");
+	printf("%d\n", s->nelems);
 }
