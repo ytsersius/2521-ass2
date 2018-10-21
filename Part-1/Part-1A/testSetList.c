@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <string.h>
 #include "setList.h"
-#include ""
 
 int main()  {
     Set s = newSet();

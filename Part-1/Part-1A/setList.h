@@ -16,7 +16,7 @@ void freeSet(Set);  //free set memory
 
 void SetInsert(Set, char *, Vertex);   //add value into set
 
-void SetDelete(Set, Vertex);    //remove value from set
+void SetDelete(Set);    //remove value from set
 
 void showSet(Set);
 

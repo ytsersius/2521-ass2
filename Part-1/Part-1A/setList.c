@@ -62,7 +62,7 @@ void SetInsert(Set s, char * url, Vertex vID) {
 
 void SetDelete(Set s) {
     assert(s->nelems > 0);
-    if (s->elems == 1)  {
+    if (s->nelems == 1)  {
         free(s->elems);
         s->nelems--;
     }
@@ -79,7 +79,7 @@ void showSet(Set s) {
     printf("{");
     Node *curr;
     for (curr = s->elems; curr != NULL; curr = curr->next)  {
-        printf("%d", curr-> value);
+        printf("%d-%s", curr->vID, curr->url);
         if (curr->next != NULL) {
             printf(",");
         }
