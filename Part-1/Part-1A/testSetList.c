@@ -19,6 +19,5 @@ int main()  {
     url = "url3";
     SetInsert(s, url);
 
-	//SetDelete(s);
     showSet(s);
 }

@@ -55,26 +55,13 @@ void SetInsert(Set s, char * url) {
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
     new->url = url;
-    new->vID = s->nelems+1;
+    new->vID = s->nelems;
     new->next = s->elems;
     s->elems = new;
 	s->nelems++;
 }
 
 void SetDelete(Set s) {
-    assert(s->nelems > 0);
-    if (s->nelems == 1)  {
-        free(s->elems);
-        s->nelems--;
-    }
-    else    {
-        Node *curr = s->elems;
-        while (curr->next->next != NULL)	{
-			curr = curr->next;
-		}
-		free(curr->next);
-        s->elems--;
-    }    
 }
 
 void showSet(Set s) {

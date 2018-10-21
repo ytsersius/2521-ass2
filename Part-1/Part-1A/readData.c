@@ -28,11 +28,9 @@ Set GetCollection(void) {
     // I'm not sure how to dynamically allocate memory here
 
     // Read the url IDs into a variable
-    int v = 1;
     while (fscanf(collection,"%s", temp) != EOF) {
         char *url_id = strdup(temp);
-        SetInsert(url_list, url_id, v);
-        v ++;
+        SetInsert(url_list, url_id);
     }
 
     //free (url_id); // Do we need this?
