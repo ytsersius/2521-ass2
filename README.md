@@ -10,9 +10,14 @@ By Steven Deng and Ying Zhong
 - Finished graph ADT files
 - Finished v1.0 of GetCollection and GetGraph
 
+21/10
+- Finished set ADT + TESTING
+- Tested GetCollection
+- Written invertedList
+
 
 Part 1a To do:
- - Finish set ADT + test
- - Test GetCollection
  - Test GetGraph (might as well do it in the pageRank.c file)
- - Write invertedList
+ - Test BSTree ADT
+ - Test GetInvertedList ()
+ - Test inverted.c
