@@ -25,19 +25,6 @@ Connections nInOutLinks (Graph g, Vertex v) {
     return c;
 }
 
-double Win (Edge e)		{
-	assert(g->edges[e.v] != NULL && g->edges[e.w] != NULL);
-	Connections c = nInOutLinks(g, v);
-	
-	int weightIN;
-
-	weightIN = c.in/inTotal(c.out);
-}
-
-double Wout (Edge e)	{
-
-}
-
 double PageRankW(double d, double diffPR, int maxIterations)	{
 	Set s = GetCollection();
 	Graph g = GetGraph(s);
@@ -61,9 +48,8 @@ double PageRankW(double d, double diffPR, int maxIterations)	{
 
         iteration ++;
 	}
-
-
-
+    
+    return PRWArray[];
 }
 
 size_t calculate_links(const matrix* m, size_t row)
