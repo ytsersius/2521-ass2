@@ -47,7 +47,7 @@ double PageRankW(double d, double diffPR, int maxIterations)	{
             calculate_Win();
             calculate_Wout();
 			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages*Win*Wout;
-            // incoming pags has PRWArray[j] <- need a function to see which incoming
+            // incoming pages has PRWArray[j] <- need a function to see which incoming
 		}
 
         // diff = pr_curr - pr_prev <- recursion? or just keep track of prev
