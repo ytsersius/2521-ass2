@@ -83,7 +83,18 @@ void freeGraph (Graph g)    {
     free(g);
 }
 
-Connections nConnections(List L)    {
-    assert(g->edges[0] != NULL);
-    List
+Connections nInOutURL (Graph g, Vertex v) {
+    assert(g->edges[v] != NULL);
+    Connections c;
+    c.out = nOutLL(g->edges[v]);
+    c.in = 0;
+    int i = 0;
+    while (i < g->nV && g->edges[i] != NULL)    {
+        if (i != v) {
+            c.in = c.in + nInLL(g->edges[i], v);
+        }   
+        i++;
+    }
+    return c;
 }
+

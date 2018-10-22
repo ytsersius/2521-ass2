@@ -10,7 +10,7 @@ typedef struct adjNode {
     struct adjNode *next;
 } adjNode;
 
-static adjNode *newNode (Vertex v)   {
+adjNode *newNode (Vertex v)   {
     adjNode *new = malloc(sizeof(adjNode));
     assert(new != NULL);
     new->v = v;
@@ -66,4 +66,28 @@ void freeLL(List L) {
         freeLL(L->next);
         free(L);
     }
+}
+
+int nOutLL(List L)    {
+    assert(L != NULL);
+    int out = 0;
+    adjNode *curr = L;
+    while (curr != NULL) {
+        curr = curr->next;
+        out++;
+    }
+    return out;    
+}
+
+int nInLL(List L, Vertex v)   {
+    assert(L != NULL);
+    int in = 0;
+    adjNode *curr = L;
+    while (curr != NULL) {
+        if (curr->v == v)   {
+            in++;
+        }
+        curr = curr->next;
+    }
+    return in;
 }

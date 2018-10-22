@@ -19,6 +19,27 @@ int main () {
     e.v = 1;
     e.w = 2;
     insertEdge(g, e);
+    e.v = 2;
+    e.w = 1;
+    insertEdge(g, e);
+    e.v = 3;
+    e.w = 1;
+    insertEdge(g, e);
+    e.v = 4;
+    e.w = 1;
+    insertEdge(g, e);
+
+    Connections c = nInOutURL(g, 1);
+    printf("For Vertex 1:\nTotal no. of URLS\nfrom: %d\nto: %d\n", c.in, c.out);
+
+    c = nInOutURL(g, 2);
+    printf("For Vertex 2:\nTotal no. of URLS\nfrom: %d\nto: %d\n", c.in, c.out);
+
+    c = nInOutURL(g, 3);
+    printf("For Vertex 3:\nTotal no. of URLS\nfrom: %d\nto: %d\n", c.in, c.out);
+
+    c = nInOutURL(g, 4);
+    printf("For Vertex 4:\nTotal no. of URLS\nfrom: %d\nto: %d\n", c.in, c.out);
 
     showGraph(g);
 
