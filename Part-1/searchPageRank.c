@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     // search for matching words
     while (fscanf(inv_idx, "%s", temp) != EOF) {
         char *word = malloc(strlen(temp) + 1);
-        memcpy(word, temp, strlen(temp));
+        word = strcpy(word, temp);
         // if found, store urls for that word
         if (isMatch(word, argv)) {
             GetMatchedURLs(inv_idx, matched_urls, word);
@@ -31,7 +31,9 @@ int main(int argc, char *argv[]) {
 
     fclose(inv_idx);
 
-    free(word);
+    if (matched_urls == NULL) {
+        return ;
+    }
 
     searchList ranked_urls = newList();
     // for each url
@@ -83,15 +85,19 @@ void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
             break;
         }
     }
+    // *Figure out a way that works for this
     // Read the line for urls
+    char *buffer = line;
     char temp[100];
-    while (sscanf(line,"%s", temp) != EOF) {
+    int pos;
+    while (sscanf(buffer,"%99s%n", temp, &pos) == 1) {
         char *match_url = malloc(strlen(temp) + 1);
-        memcpy(match_url, temp, strlen(temp));
+        match_url = strcpy(match_url, temp);
         // Store the urls in the set
         if (strstr(match_url, "url") != NULL) {
             SetInsert(s, match_url);
         }
+        buffer += pos;
     }
 }
 
@@ -123,7 +129,7 @@ double findPageRank(char *url) {
     int outgoing;
     double page_rank;
 
-    sscanf(line,"%s %d, %lf", temp, &outgoing, &page_rank)
+    sscanf(line,"%s %d, %lf", temp, &outgoing, &page_rank);
 
     fclose(pr_list);
 
