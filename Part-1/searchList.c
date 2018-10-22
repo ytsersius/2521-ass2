@@ -46,6 +46,7 @@ searchList listInsert (searchList L, char *url, int matches, double pageRank) {
     else if (matches < L->matches) {
         L->next = listInsert(L->next, url, matches, pageRank);
     }
+    // if matches are equal
     else if (pageRank > L->pageRank) {
         searchNode *n = newNode(url, matches, pageRank);
         n->next = L;
@@ -55,8 +56,8 @@ searchList listInsert (searchList L, char *url, int matches, double pageRank) {
         L->next = listInsert(L->next, url, matches, pageRank);
     }
 
-    // assume that we won't get 2 urls with the same pagerank
-
+    else
+        // just in case of duplicate pagerank values
     return L;
 }
 
