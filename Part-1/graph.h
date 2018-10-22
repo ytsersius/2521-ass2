@@ -31,7 +31,8 @@ bool adjacent(Graph, Vertex, Vertex); //adjacency check
 void showGraph(Graph);
 void freeGraph(Graph);
 Connections nInOutLinks (Graph, Vertex); //links to vertex
-int LLTotal (Graph, Vertex);
+int inTotal (Graph, Vertex);
+int nInLinks (Graph, Vertex);
 
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef READDATA_H
-#define READDATA_H
+#ifndef PAGERANK_H
+#define PAGERANK_H
 
 // Interface to Page Rank functions
 // Written by Steven Deng and Ying Zhong, October 2018

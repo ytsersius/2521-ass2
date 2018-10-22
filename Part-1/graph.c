@@ -98,9 +98,21 @@ Connections nInOutLinks (Graph g, Vertex v) {
     return c;
 }
 
-int LLTotal (Graph g, Vertex v) {
-    int i = 0;
-    
-    return nInLLTotal(g->edges[v]);
-}
 
+
+int inTotal (Graph g, Vertex v) {
+    int sum = 0;
+    int i = 0;
+    while (i < g->nV)   {
+        if (i == v) {
+            while (g->edges[j] != NULL)    {
+                if (j != v) {
+                    sum = sum + nInLL(g->edges[j], v);
+                }   
+                j++;
+            }
+        }
+        i++;
+    }
+    return sum;
+}

@@ -43,7 +43,7 @@ int main () {
 
     showGraph(g);
 
-    printf("%d\n", LLTotal(g, 0));
+    printf("%d\n", inTotal(g, 3));
 
     return 0;
 

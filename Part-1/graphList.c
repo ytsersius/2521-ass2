@@ -92,13 +92,14 @@ int nInLL(List L, Vertex v)   {
     return in;
 }
 
+/*
 int nInLLTotal(List L)    {
     assert (L != NULL);
-    int inTotal = 0;
+    int sum = 0;
     adjNode *curr = L;
     while (curr != NULL)   {
-        inTotal = inTotal + nInLL(L, curr->v);
+        sum = sum + nInLL(curr, curr->v);
         curr = curr->next;
     }
-    return inTotal;
-}
+    return sum;
+}*/
