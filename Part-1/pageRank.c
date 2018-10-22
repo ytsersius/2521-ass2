@@ -19,7 +19,7 @@ Connections nInOutLinks (Graph g, Vertex v) {
     while (i < g->nV && g->edges[i] != NULL)    {
         if (i != v) {
             c.in = c.in + nInLL(g->edges[i], v);
-        }   
+        }
         i++;
     }
     return c;
@@ -41,22 +41,25 @@ double Wout (Edge e)	{
 double PageRankW(double d, double diffPR, int maxIterations)	{
 	Set s = GetCollection();
 	Graph g = GetGraph(s);
+    // N is the number of urls in the collection
 	int N = g->nV;
 	double PRWArray[N];
-
+    // Initialise all pageranks to 1/N (equal ranks)
 	int i;
 	for (i = 0; i < N; i++)	{
 		PRWArray[i] = 1.0/N;
 	}
 
-	i = 0;
-	int interation = 0;
+	int iteration = 0;
 	double diff = diffPR;
 
+    i = 0;
 	while (iteration < maxIterations && diff >= diffPR)	{
 		for (i = 0; i < N; i++)	{
 			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages
 		}
+
+        iteration ++;
 	}
 
 
@@ -71,7 +74,7 @@ size_t calculate_links(const matrix* m, size_t row)
 	size_t counter = 0;
 	for (size_t i = 0; i < m->size; ++i)
 	{
-		counter += m->elements[i][row]; 
+		counter += m->elements[i][row];
 	}
 	if(counter == 0)
 	{

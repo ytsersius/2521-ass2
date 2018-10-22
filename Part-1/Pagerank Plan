@@ -1,6 +1,7 @@
 GRAPH ADT: graph.c graph.h DONE
 TREE ADT: BSTree.c BSTree.h TESTING
 SET ADT: Set.c Set.h DONE
+SEARCHLIST ADT: searchList.c searchList.h TESTING
 
 read data: readData.c, readData.h
 - GetCollection() -> urlList DONE
@@ -8,10 +9,10 @@ read data: readData.c, readData.h
 - GetInvertedList(urlList) -> invertedList TESTING
 
 pageRank: pageRank.c, pageRank.h
-- GetCollection() -> urlList
-- GetGraph(urlList) -> urlGraph
-- calculatePageRank
-- orderURLs
+- GetCollection() -> urlList    DONE
+- GetGraph(urlList) -> urlGraph TESTING
+- calculatePageRank             WRITING
+- orderURLs                     WRITING
 - Output to text file
 
 inverted.c DONE
@@ -21,3 +22,7 @@ main ()
 - BSTreeInfix(invertedList, invertexIndex.txt)
 
 searchPageRank
+- GetMatchedURLs(inv_idx, matched_urls, word)
+- countMatches(curr->url, matched_urls)
+- findPageRank(curr->url)
+- searchList listInsert(ranked_urls, curr->url, matches, page_rank)

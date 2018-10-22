@@ -13,12 +13,11 @@
 #include "setList.h"
 #include "BSTree.h"
 
-
 // TO DO:
 // - Finish set ADT + test DONE
-// - Test GetCollection 
+// - Test GetCollection DONE
 // - Test GetGraph (might as well do it in the pageRank.c file)
-// - Test GetInvertedList (do this in invertedIndex.c)
+// - Test GetInvertedList (do this in inverted.c)
 
 Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
@@ -28,7 +27,7 @@ Set GetCollection(void) {
     // Read the url IDs into a variable
     while (fscanf(collection,"%s", temp) != EOF) {
         char *url_id = malloc(strlen(temp) + 1);
-        memcpy(url_id, temp, strlen(temp));
+        url_id = strcpy(url_id, temp);
         SetInsert(url_list, url_id);
     }
 
@@ -73,7 +72,7 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
     // Read the url.txt file for outgoing links (word by word)
     while (fscanf(url_info, "%s", temp) != EOF) {
         char *out_url = malloc(strlen(temp) + 1);
-        memcpy(out_url, temp, strlen(temp));
+        out_url = strcpy(out_url, temp);
         // If found an outgoing link
         if (strstr(out_url, "url") != NULL) {
             Vertex v_out = findVertexID(url_list, out_url);
@@ -128,7 +127,7 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
     // Read url.txt file for words
     while (fscanf(url_info, "%s", temp) != EOF) {
         char *word = malloc(strlen(temp) + 1);
-        memcpy(word, temp, strlen(temp));
+        strcpy(word, temp);
         word = normalise(word);
         // insert key into tree
         inv_tree = BSTreeInsert(inv_tree, word);
