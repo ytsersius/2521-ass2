@@ -15,8 +15,8 @@
 
 
 // TO DO:
-// - Finish set ADT + test
-// - Test GetCollection
+// - Finish set ADT + test DONE
+// - Test GetCollection 
 // - Test GetGraph (might as well do it in the pageRank.c file)
 // - Test GetInvertedList (do this in invertedIndex.c)
 

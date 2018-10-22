@@ -30,6 +30,5 @@ void removeEdge(Graph, Edge);
 bool adjacent(Graph, Vertex, Vertex); //adjacency check
 void showGraph(Graph);
 void freeGraph(Graph);
-Connections nInOutURL (Graph, Vertex); //links to vertex
 
 #endif

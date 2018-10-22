@@ -65,12 +65,12 @@ bool adjacent (Graph g, Vertex v, Vertex w)   {
 void showGraph (Graph g)    {
     assert(g != NULL);
     int i;
-    printf("Number of vertices: %d\n", g->nV);
-    printf("Number of edges: %d\n", g->nE);
     for (i = 0; i < g->nV; i++) {
         printf("%d - ", i);
         showLL(g->edges[i]);
     }
+    printf("Number of vertices: %d\n", g->nV);
+    printf("Number of edges: %d\n", g->nE);
 }
 
 void freeGraph (Graph g)    {
@@ -83,18 +83,5 @@ void freeGraph (Graph g)    {
     free(g);
 }
 
-Connections nInOutURL (Graph g, Vertex v) {
-    assert(g->edges[v] != NULL);
-    Connections c;
-    c.out = nOutLL(g->edges[v]);
-    c.in = 0;
-    int i = 0;
-    while (i < g->nV && g->edges[i] != NULL)    {
-        if (i != v) {
-            c.in = c.in + nInLL(g->edges[i], v);
-        }   
-        i++;
-    }
-    return c;
-}
+
 
