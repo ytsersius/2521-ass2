@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdbool.h>
+#include <string.h>
 #include "setList.h"
 
 typedef struct Node {
@@ -33,7 +34,7 @@ int isValid(Set s)  {
 // Set Operations
 
 //  create new set
-Set newSet()    {
+Set newSet(void)    {
     Set s = malloc(sizeof(struct SetRep));
     assert(s != NULL);
     s->nelems = 0;
@@ -54,7 +55,7 @@ void SetInsert(Set s, char *url) {
     assert(isValid(s));
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
-    new->url = url;
+    new->url = strcpy(new->url, url);
     new->vID = s->nelems;
     new->next = s->elems;
     s->elems = new;

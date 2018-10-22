@@ -35,7 +35,7 @@ static BSTLink newBSTNode(char *word)
 }
 
 // create a new empty BSTree
-BSTree newBSTree()
+BSTree newBSTree(void)
 {
 	return NULL;
 }
@@ -213,7 +213,7 @@ BSTSet insertNode (BSTSet S, char *url)   {
         n->next = S;
         return n;
     else if (strcmp(url, S->url) > 0)
-        S->next = insertNode(S->next);
+        S->next = insertNode(S->next, url);
     else
         // Avoids duplicates - don't need to check
     return S;

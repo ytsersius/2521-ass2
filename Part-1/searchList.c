@@ -7,59 +7,79 @@
 #include <string.h>
 #include "urlList.h"
 
-typedef struct URLNode {
+typedef struct searchNode {
    char        *link;
    int          matches;
    double       pageRank;
-   struct URLNode   *next;
-} URLNode;
+   struct searchNode   *next;
+} searchNode;
 
-List insertLL (List L, Vertex v)   {
-    if (inLL(L, v)) {
+static searchNode *newNode (char *url, int matches, double pageRank) {
+    searchNode *new = malloc(sizeof(searchNode));
+    assert(new != NULL);
+    new->link = strcpy(new->link, url);
+    new->matches = matches;
+    new->pageRank = pageRank;
+    new->next = NULL;
+    return new;
+
+}
+
+searchList newList(void) {
+    return NULL;
+}
+
+// sorted node insert
+searchList listInsert (searchList L, char *url, int matches, double pageRank) {
+    if (inList(L, url)) {
         return L;
     }
 
-    adjNode *n = newNode(v);
+    searchNode *n = newNode(url, matches, pageRank);
 	n->next = L;
     return n;
 }
 
-List deleteLL (List L, Vertex v)   {
+searchList listDelete (searchList L, char *url)   {
     if (L == NULL)  {
         return L;
     }
-    if (L->v == v)  {
-        return L->next;
+
+    if (strcmp(L->link, url) == 0)  {
+        searchNode *temp = L->next;
+        free(L);
+        return temp;
     }
 
-    L->next = deleteLL(L->next, v);
+    L->next = listDelete(L->next, url);
 	return L;
 }
 
-bool inLL(List L, int n)    {
+int inList(searchList L, char *url)    {
     if (L == NULL)  {
-        return false;
+        return 0;
     }
-    if (L->v == n)  {
-        return true;
+    if (strcmp(L->link, url) == 0)  {
+        return 1;
     }
 
-    return inLL(L->next, n);
+    return inList(L->next, url);
 }
 
-void showLL (List L)    {
+void showList (searchList L)    {
     if (L == NULL)  {
             putchar('\n');
     }
     else    {
-        printf("%d - ", L->v);
-        showLL(L->next);
+        printf("%s - matches: %d - pagerank %.7f \n",
+        L->link, L->matches, L->pageRank);
+        showList(L->next);
     }
 }
 
-void freeLL(List L) {
+void listFree(searcList L) {
     if (L != NULL)  {
-        freeLL(L->next);
+        listFree(L->next);
         free(L);
     }
 }

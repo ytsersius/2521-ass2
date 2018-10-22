@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <string.h>
 
-// -> Name this adjNode to avoid confusion
 typedef struct adjNode {
     Vertex v;
     struct adjNode *next;
