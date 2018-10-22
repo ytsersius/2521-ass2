@@ -37,15 +37,16 @@ double PageRankW(double d, double diffPR, int maxIterations)	{
 		PRWArray[i] = 1.0/N;
 	}
 
-
 	int iteration = 0;
 	double diff = diffPR;
-    
+
     i = 0;
 	while (iteration < maxIterations && diff >= diffPR)	{
 		for (i = 0; i < N; i++)	{
 			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages
 		}
+
+        iteration ++;
 	}
 
 
