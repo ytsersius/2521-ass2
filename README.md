@@ -15,10 +15,16 @@ By Steven Deng and Ying Zhong
 - Tested GetCollection
 - Written invertedList
 
+22/10
+- Finished searchList ADT + TESTED some functions
+- Finished searchPageRank.c
+
 
 Part 1 To do:
+ - Write pagerank.c
  - Test GetGraph (might as well do it in the pageRank.c file)
  - Test BSTree ADT
  - Test GetInvertedList ()
  - Test inverted.c
- - Write Part 1-c
+ - Test searchList.c 
+ - Test searchPageRank.c
