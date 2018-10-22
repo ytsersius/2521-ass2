@@ -13,6 +13,7 @@ bool inLL(List, int);
 void freeLL(List);
 void showLL(List);
 int nOutLL(List); //find number of outgoing URLs from vertex
-int nInLL(List L, Vertex v); //find number of incomnig URLS to vertex
+int nInLL(List, Vertex); //find number of incomnig URLS to vertex
+int nInLLTotal(List); 
 
 #endif
