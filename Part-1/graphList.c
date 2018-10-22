@@ -1,9 +1,9 @@
-#include "graphList.h"
-#include "graph.h"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "graphList.h"
+#include "graph.h"
 
 typedef struct adjNode {
     Vertex v;
