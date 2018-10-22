@@ -13,6 +13,7 @@ By Steven Deng and Ying Zhong
 21/10
 - Finished set ADT + TESTING
 - Tested GetCollection
+- Tested GetGraph
 - Written invertedList
 
 22/10
