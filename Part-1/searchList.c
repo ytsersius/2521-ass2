@@ -31,13 +31,38 @@ searchList newList(void) {
 
 // sorted node insert
 searchList listInsert (searchList L, char *url, int matches, double pageRank) {
+    // avoid duplicates
     if (inList(L, url)) {
         return L;
     }
 
-    searchNode *n = newNode(url, matches, pageRank);
-	n->next = L;
-    return n;
+    if (L == NULL) {
+        return newNode(url, matches, pageRank);
+    }
+
+    else if (matches > L->matches) {
+        searchNode *n = newNode(url, matches, pageRank);
+        n->next = L;
+        return n;
+    }
+
+    else if (matches < L->matches) {
+        L->next = listInsert(L->next, url, matches, pageRank);
+    }
+
+    else if (pageRank > L->pageRank) {
+        searchNode *n = newNode(url, matches, pageRank);
+        n->next = L;
+        return n;
+    }
+
+    else if(pagerank < L->pageRank) {
+        L->next = listInsert(L->next, url, matches, pageRank);
+    }
+
+    // assume that we won't get 2 urls with the same pagerank
+
+    return L;
 }
 
 searchList listDelete (searchList L, char *url)   {

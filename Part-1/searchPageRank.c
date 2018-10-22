@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include "setList.h"
+#include "searchList.h"
 
 #define MAX_RESULTS 30
 
@@ -29,13 +30,16 @@ int main(int argc, char *argv[]) {
     fclose(inv_idx);
 
     free(word);
-
     // for each url
+    Node *curr = matched_urls->elems;
+    while (curr != NULL) {
         // count number of search terms matched
         // find page rank
         // insert into URLrep
+    }
+
     // bubble sort by match if not insertion sorted
-    
+
     // output sorted urls less than 30
 
     return 0;
