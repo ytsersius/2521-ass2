@@ -31,7 +31,7 @@ double Win (Edge e)		{
 	
 	int weightIN;
 
-	weightIN = c.in 
+	weightIN = c.in/inTotal(c.out);
 }
 
 double Wout (Edge e)	{
