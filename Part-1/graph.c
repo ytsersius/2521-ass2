@@ -11,7 +11,7 @@
 #include "graphList.h"
 
 typedef struct GraphRep {
-   List **edges;  // array of lists
+   List *edges;  // array of lists
    int    nV;     // #vertices
    int    nE;     // #edges
 } GraphRep;
