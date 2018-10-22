@@ -14,6 +14,8 @@
 #include "BSTree.h"
 
 // TO DO:
+// - Finish set ADT + test DONE
+// - Test GetCollection DONE
 // - Test GetGraph (might as well do it in the pageRank.c file)
 // - Test GetInvertedList (do this in inverted.c)
 
@@ -25,7 +27,7 @@ Set GetCollection(void) {
     // Read the url IDs into a variable
     while (fscanf(collection,"%s", temp) != EOF) {
         char *url_id = malloc(strlen(temp) + 1);
-        strcpy(url_id, temp);
+        url_id = strcpy(url_id, temp);
         SetInsert(url_list, url_id);
     }
 
@@ -70,7 +72,7 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
     // Read the url.txt file for outgoing links (word by word)
     while (fscanf(url_info, "%s", temp) != EOF) {
         char *out_url = malloc(strlen(temp) + 1);
-        strcpy(out_url, temp);
+        out_url = strcpy(out_url, temp);
         // If found an outgoing link
         if (strstr(out_url, "url") != NULL) {
             Vertex v_out = findVertexID(url_list, out_url);

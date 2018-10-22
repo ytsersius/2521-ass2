@@ -7,6 +7,48 @@
 #include <string.h>
 #include <ctype.h>
 #include "setList.h"
+#include "graph.h"
+#include "readData.h"
+
+Connections nInOutLinks (Graph g, Vertex v) {
+    assert(g->edges[v] != NULL);
+    Connections c;
+    c.out = nOutLL(g->edges[v]);
+    c.in = 0;
+    int i = 0;
+    while (i < g->nV && g->edges[i] != NULL)    {
+        if (i != v) {
+            c.in = c.in + nInLL(g->edges[i], v);
+        }   
+        i++;
+    }
+    return c;
+}
+
+double PageRankW(double d, double diffPR, int maxIterations)	{
+	Set s = GetCollection();
+	Graph g = GetGraph(s);
+	int N = g->nV;
+	double PRWArray[N];
+
+	int i;
+	for (i = 0; i < N; i++)	{
+		PRWArray[i] = 1.0/N;
+	}
+
+	i = 0;
+	int interation = 0;
+	double diff = diffPR;
+
+	while (iteration < maxIterations && diff >= diffPR)	{
+		for (i = 0; i < N; i++)	{
+			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages
+		}
+	}
+
+
+
+}
 
 size_t calculate_links(const matrix* m, size_t row)
 {

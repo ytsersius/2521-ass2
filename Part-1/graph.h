@@ -17,6 +17,11 @@ typedef struct Edge {   //when inserting or deleting
     Vertex w;
 } Edge;
 
+typedef struct Connections  {   //number of incoming and
+    int in;                     //outgoing links for a url
+    int out;
+} Connections;
+
 // Graph Operations
 Graph newGraph(int);
 bool validV(Graph, Vertex); //validity check

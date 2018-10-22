@@ -11,7 +11,7 @@
 #include "graphList.h"
 
 typedef struct GraphRep {
-   List **edges;  // array of lists
+   List *edges;  // array of lists
    int    nV;     // #vertices
    int    nE;     // #edges
 } GraphRep;
@@ -65,13 +65,12 @@ bool adjacent (Graph g, Vertex v, Vertex w)   {
 void showGraph (Graph g)    {
     assert(g != NULL);
     int i;
-
-    printf("Number of vertices: %d\n", g->nV);
-    printf("Number of edges: %d\n", g->nE);
     for (i = 0; i < g->nV; i++) {
         printf("%d - ", i);
         showLL(g->edges[i]);
     }
+    printf("Number of vertices: %d\n", g->nV);
+    printf("Number of edges: %d\n", g->nE);
 }
 
 void freeGraph (Graph g)    {
@@ -83,3 +82,6 @@ void freeGraph (Graph g)    {
     }
     free(g);
 }
+
+
+

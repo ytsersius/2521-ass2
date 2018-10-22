@@ -5,30 +5,26 @@
 #include <string.h>
 #include "setList.h"
 
-void GetCollection(Set s) {
+Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
-    //Set s = newSet();
+    Set url_list = newSet();
 
     char temp[100];
-
-
     // Read the url IDs into a variable
-    while (fscanf(collection, "%s", temp) != EOF) {
+    while (fscanf(collection,"%s", temp) != EOF) {
         char *url_id = malloc(strlen(temp) + 1);
         memcpy(url_id, temp, strlen(temp));
-		printf("%s\n", url_id);
-        SetInsert(s, url_id);
+        SetInsert(url_list, url_id);
     }
 
     //free (url_id); // Do we need this?
     fclose(collection);
 
+    return url_list;
 }
 
 int main()  {
-    Set s = newSet();
-	GetCollection(s);
+    Set s = GetCollection();
     showSet(s);
-
     return 0;
 }
