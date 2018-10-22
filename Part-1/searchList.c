@@ -35,27 +35,22 @@ searchList listInsert (searchList L, char *url, int matches, double pageRank) {
     if (inList(L, url)) {
         return L;
     }
-
     if (L == NULL) {
         return newNode(url, matches, pageRank);
     }
-
     else if (matches > L->matches) {
         searchNode *n = newNode(url, matches, pageRank);
         n->next = L;
         return n;
     }
-
     else if (matches < L->matches) {
         L->next = listInsert(L->next, url, matches, pageRank);
     }
-
     else if (pageRank > L->pageRank) {
         searchNode *n = newNode(url, matches, pageRank);
         n->next = L;
         return n;
     }
-
     else if(pagerank < L->pageRank) {
         L->next = listInsert(L->next, url, matches, pageRank);
     }
