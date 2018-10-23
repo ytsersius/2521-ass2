@@ -1,3 +1,5 @@
+// searchTfIdf.c by Steven Deng and Ying Zhong, October 2018
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>

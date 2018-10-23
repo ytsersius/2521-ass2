@@ -5,14 +5,14 @@ SEARCHLIST ADT: searchList.c searchList.h TESTING
 
 read data: readData.c, readData.h
 - GetCollection() -> urlList DONE
-- Graph GetGraph(urlList) -> urlGraph TESTING
+- Graph GetGraph(urlList) -> urlGraph DONE
 - GetInvertedList(urlList) -> invertedList TESTING
 
 pageRank: pageRank.c, pageRank.h
 - GetCollection() -> urlList    DONE
 - GetGraph(urlList) -> urlGraph TESTING
-- calculatePageRank             WRITING
-- orderURLs                     WRITING
+- calculatePageRank             TESTING
+- orderURLs                     TESTING
 - Output to text file
 
 inverted.c DONE
@@ -21,7 +21,7 @@ main ()
 - GetInvertedList(urlList) -> invertedList
 - BSTreeInfix(invertedList, invertexIndex.txt)
 
-searchPageRank
+searchPageRank DONE
 - GetMatchedURLs(inv_idx, matched_urls, word)
 - countMatches(curr->url, matched_urls)
 - findPageRank(curr->url)

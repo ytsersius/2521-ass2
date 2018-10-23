@@ -14,6 +14,7 @@
 #include "BSTree.h"
 
 // TO DO:
+// - Test GetGraph (might as well do it in the pageRank.c file)
 // - Test GetInvertedList (do this in inverted.c)
 
 Set GetCollection(void) {
@@ -28,7 +29,7 @@ Set GetCollection(void) {
         SetInsert(url_list, url_id);
     }
 
-    free (url_id);
+    //free (url_id); // Do we need this?
     fclose(collection);
 
     return url_list;

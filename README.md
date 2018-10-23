@@ -1,5 +1,5 @@
 # 2521-ass2
-* Reminder: free all adts at the end of every function
+* Reminder: free all malloc'd variables at the end of every function
 
 Implementation of a simplified search engine
 By Steven Deng and Ying Zhong
@@ -21,12 +21,15 @@ By Steven Deng and Ying Zhong
 - Finished searchList ADT + TESTED some functions
 - Finished searchPageRank.c
 
+23/10
+- Finished pagerank.c
+- Finished tfidfList ADT 
+- Almost finished searchTfIdf.c
 
 Part 1 To do:
- - Write pagerank.c
- - Test GetGraph (might as well do it in the pageRank.c file)
  - Test BSTree ADT
  - Test GetInvertedList ()
  - Test inverted.c
  - Test searchList.c
  - Test searchPageRank.c
+ - Test pageRank.c
