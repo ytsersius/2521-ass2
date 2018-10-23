@@ -29,6 +29,9 @@ int main () {
     e.v = 4;
     e.w = 1;
     insertEdge(g, e);
+    e.v = 0;
+    e.w = 2;
+    insertEdge(g,e);
 
     Connections c = nInOutLinks(g, 1);
     printf("For Vertex 1:\nTotal no. of URLS\nfrom: %d\nto: %d\n", c.in, c.out);
@@ -44,7 +47,16 @@ int main () {
 
     showGraph(g);
 
-    printf("%d\n", inTotal(g, 3));
+    
+
+    e.v = 1;
+    e.w = 0;
+
+    printf("Test W_in:\nsumIp: %f\nIu: %f\nWin: %f\n", sumIp(g, 1), Iu(g, 0), Win(g, e)); 
+
+    printf("Test W_out:\nSumOp: %f\nOu: %f\nWout: %f\n", sumOp(g, 1), Ou(g, 0), Wout(g, e));
+
+    printArray(g, 1);
 
     return 0;
 
