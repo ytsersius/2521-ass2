@@ -45,8 +45,8 @@ int main(int argc, char *argv[]) {
     while (curr != NULL) {
         curr_word = curr->matchWords;
         while (curr_word != NULL) {
-            char *url = curr->key;
-            char *word = curr_word->key;
+            char *url = curr->key; // if i want to strcpy i need to malloc
+            char *word = curr_word->key; // which is pretty ceebs
         // ^ not sure if this will cause errors with pointers
             int url_count = curr_word->matchCount;
             double tf = calculateTf(word, url);
