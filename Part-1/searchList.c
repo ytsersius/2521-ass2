@@ -1,11 +1,11 @@
-// url List implementation for searchPageRank.c function:
+// searchList implementation for searchPageRank.c function:
 // Written by Steven Deng and Ying Zhong, October 2018
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include "urlList.h"
+#include "searchList.h"
 
 typedef struct searchNode {
    char        *link;
@@ -98,7 +98,7 @@ void showList (searchList L)    {
     }
 }
 
-void listFree(searcList L) {
+void listFree(searchList L) {
     if (L != NULL)  {
         listFree(L->next);
         free(L);

@@ -1,4 +1,5 @@
 # 2521-ass2
+* Reminder: free all adts at the end of every function
 
 Implementation of a simplified search engine
 By Steven Deng and Ying Zhong
@@ -27,5 +28,5 @@ Part 1 To do:
  - Test BSTree ADT
  - Test GetInvertedList ()
  - Test inverted.c
- - Test searchList.c 
+ - Test searchList.c
  - Test searchPageRank.c
