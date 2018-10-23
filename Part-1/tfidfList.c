@@ -10,9 +10,7 @@
 typedef struct tfidfNode {
    char        *key;
    int          matchCount; // n of words matched by the url
-                            // n of docs a word is in for ->matchWords
-   double       tfidf;
-
+   double       tfidf;      // n of docs a word is in for ->matchWords
    struct tfidfNode   *matchWords; // stores all the matched words
    struct tfidfNode   *next;
 } tfidfNode;
@@ -20,7 +18,7 @@ typedef struct tfidfNode {
 static tfidfNode *newNode (char *key, char *word) {
     tfidfNode *new = malloc(sizeof(tfidfNode));
     assert(new != NULL);
-    new->key = strcpy(new->link, key);
+    new->key = strcpy(new->key, key);
     new->matchCount = 1;
     new->tfidf = 0;
     new->next = NULL;
@@ -31,7 +29,7 @@ static tfidfNode *newNode (char *key, char *word) {
 
 static tfidfNode *newMatchNode (char *word) {
     tfidfNode *newMatch = malloc(sizeof(tfidfNode));
-    newMatch->key = strcpy(new->matchWords->key, word);
+    newMatch->key = strcpy(newMatch->key, word);
     // update matchWords->matchCount in the body
     newMatch->tfidf = 0;
     newMatch->matchWords = NULL;
@@ -49,7 +47,7 @@ tfidfList listInsert (tfidfList L, char *key, char *word) {
     // avoid inserting duplicates
     if (inList(L, key)) {
         L->matchCount ++;
-        new->matchWords->next = newMatchNode(word);
+        L->matchWords->next = newMatchNode(word);
         return L;
     }
     if (L == NULL) {
@@ -64,6 +62,22 @@ tfidfList listInsert (tfidfList L, char *key, char *word) {
         L->next = listInsert(L->next, key, word);
     }
     return L;
+}
+
+// inserts the number of documents a word appears in
+void insertURLCount(tfidfList L, int count, char *word) {
+    tfidfNode *curr = L;
+    tfidfNode *curr_word;
+    while (curr != NULL) {
+        curr_word = curr->matchWords;
+        while (curr_word != NULL) {
+            if (strcmp(curr_word->key, word) == 0) {
+                curr_word->matchCount = count;
+            }
+                curr_word = curr_word->next;
+        }
+        curr = curr->next;
+    }
 }
 
 tfidfList listDelete (tfidfList L, char *key)   {

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include <math.h>
 #include "readData.h"
 #include "setList.h"
 #include "tfidfList.h"
@@ -9,15 +10,19 @@
 #define MAX_RESULTS 30
 
 int isMatch(char *word, char *argv[]);
-void GetMatchedURLs(FILE *inv_idx, Set s, char *word);
+void GetMatchedURLs(FILE *inv_idx, tfidfList L, char *word);
+double calculateTf(char *word, char *url);
+double calculateIdf(int N, int url_count);
 
 int main(int argc, char *argv[]) {
+    Set collection = GetCollection();
+    int N = collection->nelems;
 
     // Open invertedIndex.txt for reading
     FILE *inv_idx = fopen("invertedIndex.txt", "r");
-    char temp[100];
 
-    Set matched_urls = newSet();
+    tfidfList matched_URLs = newList();
+    char temp[100];
     // search for matching words
     while (fscanf(inv_idx, "%s", temp) != EOF) {
         char *word = malloc(strlen(temp) + 1);
@@ -28,11 +33,34 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    free(word);
     fclose(inv_idx);
 
     if (matched_urls == NULL) {
         return ;
     }
+
+    tfidfNode *curr = matched_URLs;
+    tfidfNode *curr_word;
+    while (curr != NULL) {
+        curr_word = curr->matchWords;
+        while (curr_word != NULL) {
+            char *url = curr->key;
+            char *word = curr_word->key;
+        // ^ not sure if this will cause errors with pointers
+            int url_count = curr_word->matchCount;
+            double tf = calculateTf(word, url);
+            double idf = calculateIdf(N, url_count);
+            curr->tfidf += tf*idf;
+
+            curr_word = curr_word->next;
+        }
+        curr = curr->next;
+    }
+
+    // sort by matches, then if matches ==, by tfidf
+
+    // print urls less than 30 with idf values
 
     return 0;
 }
@@ -51,7 +79,7 @@ int isMatch(char *word, char *argv[]) {
 }
 
 // store urls for a matched term
-void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
+void GetMatchedURLs(FILE *inv_idx, tfidfList L, char *word) {
     char line[1000];
     // Read a line and look for the word in the line
     while (fgets(line, 1000, inv_idx)) {
@@ -63,13 +91,29 @@ void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
     char *buffer = line;
     char temp[100];
     int pos;
+    int url_count = 0;
     while (sscanf(buffer,"%99s%n", temp, &pos) == 1) {
         char *match_url = malloc(strlen(temp) + 1);
         match_url = strcpy(match_url, temp);
-        // Store the urls in the set
+        // Store the urls in the list
         if (strstr(match_url, "url") != NULL) {
-            SetInsert(s, match_url);
+            L = listInsert(L, match_url, word);
+            url_count ++;
         }
         buffer += pos;
     }
+
+    insertURLCount(L, url_count, word);
+}
+
+double calculateIdf(int N, int url_count) {
+    double quotient = N/url_count;
+    double idf = log10(quotient);
+
+    return idf;
+}
+
+double calculateTf(char *word, char *url) {
+
+    
 }

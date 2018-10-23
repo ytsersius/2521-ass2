@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    free(word);
     fclose(inv_idx);
 
     if (matched_urls == NULL) {
@@ -94,10 +95,12 @@ void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
         match_url = strcpy(match_url, temp);
         // Store the urls in the set
         if (strstr(match_url, "url") != NULL) {
-            SetInsert(s, match_url);
+            s = SetInsert(s, match_url);
         }
         buffer += pos;
     }
+
+    free(match_url);
 }
 
 // counts number of times url appears in set
