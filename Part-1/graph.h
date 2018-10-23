@@ -30,9 +30,17 @@ void removeEdge(Graph, Edge);
 bool adjacent(Graph, Vertex, Vertex); //adjacency check
 void showGraph(Graph);
 void freeGraph(Graph);
-Connections nInOutLinks (Graph, Vertex); //links to vertex
-int inTotal (Graph, Vertex);
-int nInLinks (Graph, Vertex);
 
+Connections nInOutLinks(Graph, Vertex); // links to and from vertex 
+void printArray (Graph, Vertex); //print array
+float Iu (Graph, Vertex); //return Iu (W_in) of a page
+float Ou (Graph, Vertex); //return Ou (W_out) of a page
+float sumIp (Graph, Vertex); //return sum of Ip (W_in) of a page
+float sumOp (Graph, Vertex); //return sum of Op (W_out) of a page
+float Win (Graph, Edge); //return W_in of a page
+float Wout (Graph, Edge); //return W_out of a page
+char *inArray (Graph, Vertex); //return array of incoming urls of a page
+float sumPRWinWout (float, float, float, int, Graph, Vertex);
+float PageRank (float, float, float, int, Graph, Vertex);
 
 #endif

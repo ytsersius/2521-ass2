@@ -68,6 +68,7 @@ void freeLL(List L) {
     }
 }
 
+//return no. of outgoing links from vertex
 int nOutLL(List L)    {
     assert(L != NULL);
     int out = 0;
@@ -79,6 +80,7 @@ int nOutLL(List L)    {
     return out;    
 }
 
+//return no. of incoming links to vertex
 int nInLL(List L, Vertex v)   {
     assert(L != NULL);
     int in = 0;
@@ -92,14 +94,20 @@ int nInLL(List L, Vertex v)   {
     return in;
 }
 
-/*
-int nInLLTotal(List L)    {
-    assert (L != NULL);
-    int sum = 0;
+//create array of outgoing urls from a page
+char *outArray(List L)   {
+    char *out = malloc(nOutLL(L));
+    assert(out != NULL);
+
     adjNode *curr = L;
-    while (curr != NULL)   {
-        sum = sum + nInLL(curr, curr->v);
+    for (int i = 0; i < nOutLL(L); i++) {
+        out[i] = curr->v;
         curr = curr->next;
     }
-    return sum;
-}*/
+    return out;
+}
+
+
+
+
+
