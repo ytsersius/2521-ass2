@@ -19,6 +19,6 @@ int inList(searchList L, char *url); // determines if a url is in the list
 
 void showList (searchList L); // shows he list
 
-void listFree(searcList L); // frees all memory from list
+void listFree(searchList L); // frees all memory from list
 
 #endif

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "graph.h"
 #include "graphList.h"
+#include "pageRank.h"
 
 int main () {
 

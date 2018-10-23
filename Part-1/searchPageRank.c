@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    free(word);
     fclose(inv_idx);
 
     if (matched_urls == NULL) {
@@ -57,6 +58,7 @@ int main(int argc, char *argv[]) {
     while (i < MAX_RESULTS && cur != NULL) {
         printf("%s\n", cur->link);
         cur = cur->next;
+        i ++;
     }
 
     return 0;
@@ -75,7 +77,6 @@ int isMatch(char *word, char *argv[]) {
     return 0;
 }
 
-// *To do - improve the efficiency of this
 // store urls for a matched term
 void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
     char line[1000];
@@ -85,7 +86,6 @@ void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
             break;
         }
     }
-    // *Figure out a way that works for this
     // Read the line for urls
     char *buffer = line;
     char temp[100];
@@ -95,10 +95,12 @@ void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
         match_url = strcpy(match_url, temp);
         // Store the urls in the set
         if (strstr(match_url, "url") != NULL) {
-            SetInsert(s, match_url);
+            s = SetInsert(s, match_url);
         }
         buffer += pos;
     }
+
+    free(match_url);
 }
 
 // counts number of times url appears in set

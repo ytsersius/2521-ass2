@@ -25,6 +25,7 @@ Connections nInOutLinks (Graph g, Vertex v) {
     return c;
 }
 
+<<<<<<< HEAD
 float Iu (Graph g, Vertex v)    {
     float sum = 0;
     int i = 0;
@@ -82,6 +83,16 @@ char *PageRankW (float d, float diffPR, int maxIterations)   {
 	char PRWArray[N];
 
     int i;
+=======
+double PageRankW(double d, double diffPR, int maxIterations)	{
+	Set s = GetCollection();
+	Graph g = GetGraph(s);
+    // N is the number of urls in the collection
+	int N = g->nV;
+	double PRWArray[N];
+    // Initialise all pageranks to 1/N (equal ranks)
+	int i;
+>>>>>>> 4c3318fb4aa7dcb98386cf827686fe38da48b31a
 	for (i = 0; i < N; i++)	{
 		PRWArray[i] = 1.0/N;
 	}
@@ -90,12 +101,21 @@ char *PageRankW (float d, float diffPR, int maxIterations)   {
 	float diff = diffPR;
     i = 0;
 	while (iteration < maxIterations && diff >= diffPR)	{
+        // i corresponding to vertices in graph?
 		for (i = 0; i < N; i++)	{
-			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages
+            calculate_Win();
+            calculate_Wout();
+			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages*Win*Wout;
+            // incoming pages has PRWArray[j] <- need a function to see which incoming
 		}
+
+        // diff = pr_curr - pr_prev <- recursion? or just keep track of prev
+        // pr_prev = pr_curr;
+        // ^ intialise prev as 1 then update
 
         iteration ++;
 	}
+<<<<<<< HEAD
     return PWArray;
 }*/
 
@@ -114,6 +134,10 @@ float PageRank (float PR, float d, float diffPR, int maxIteration, Graph g, Vert
     }
     
     return PR;
+=======
+
+    return PRWArray[];
+>>>>>>> 4c3318fb4aa7dcb98386cf827686fe38da48b31a
 }
 
 float sumPRWinWout (float PR, float d, float diffPR, int maxIteration, Graph g, Vertex v)   {

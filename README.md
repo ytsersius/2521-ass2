@@ -1,4 +1,5 @@
 # 2521-ass2
+* Reminder: free all adts at the end of every function
 
 Implementation of a simplified search engine
 By Steven Deng and Ying Zhong
@@ -13,12 +14,19 @@ By Steven Deng and Ying Zhong
 21/10
 - Finished set ADT + TESTING
 - Tested GetCollection
+- Tested GetGraph
 - Written invertedList
+
+22/10
+- Finished searchList ADT + TESTED some functions
+- Finished searchPageRank.c
 
 
 Part 1 To do:
+ - Write pagerank.c
  - Test GetGraph (might as well do it in the pageRank.c file)
  - Test BSTree ADT
  - Test GetInvertedList ()
  - Test inverted.c
- - Write Part 1-c
+ - Test searchList.c
+ - Test searchPageRank.c
