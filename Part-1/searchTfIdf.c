@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
             int url_count = curr_word->matchCount;
             double tf = calculateTf(word, url);
             double idf = calculateIdf(N, url_count);
-            curr->tfidf += tf*idf;
+            curr->tfidf += tf * idf;
 
             curr_word = curr_word->next;
         }
@@ -114,11 +114,33 @@ double calculateIdf(int N, int url_count) {
 }
 
 double calculateTf(char *word, char *url) {
+    int word_freq = 0;
+    int total_terms = 0;
+
     char *url_fname = calloc(strlen(url) + 5, sizeof(char));
     sprintf(url_fname, "%s.txt", url);
+    // open the file for reading
     FILE *d = fopen(url_fname, "r");
-        
+    // read each word
+    char temp[100];
+    while(fscanf(d, "%s", temp) != EOF) {
+        char *term = malloc(strlen(temp) + 1);
+        term = strcpy(term, temp);
+        if (strcmp(term, word) == 0) {
+            word_freq ++;
+        }
+        // this condition needs to be modified lol
+        if (strcmp(term, "#start") != 0 && strcmp(term, "#end") != 0
+            && strstr(term, "url") == NULL) {
+                total_terms ++;
+            }
+    }
 
+    double tf = word_freq / total_terms;
+
+    free(term);
     free (url_fname);
     fclose(d);
+
+    return tf;
 }

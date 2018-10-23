@@ -14,8 +14,6 @@
 #include "BSTree.h"
 
 // TO DO:
-// - Finish set ADT + test DONE
-// - Test GetCollection DONE
 // - Test GetGraph (might as well do it in the pageRank.c file)
 // - Test GetInvertedList (do this in inverted.c)
 
@@ -128,7 +126,7 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
     // Read url.txt file for words
     while (fscanf(url_info, "%s", temp) != EOF) {
             char *word = malloc(strlen(temp) + 1);
-            strcpy(word, temp);
+            word = strcpy(word, temp);
             if (strcmp(word, "#start") != 0 && strcmp(word, "#end") != 0
                 && strstr(word, "url") == NULL) {
                 word = normalise(word);
