@@ -114,6 +114,11 @@ double calculateIdf(int N, int url_count) {
 }
 
 double calculateTf(char *word, char *url) {
+    char *url_fname = calloc(strlen(url) + 5, sizeof(char));
+    sprintf(url_fname, "%s.txt", url);
+    FILE *d = fopen(url_fname, "r");
+        
 
-    
+    free (url_fname);
+    fclose(d);
 }

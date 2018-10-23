@@ -121,19 +121,24 @@ BSTree GetInvertedList(Set url_list) {
     return inv_tree;
 }
 
+// *Need to figure out how to only read relevant text
 void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
     char temp[100]; // temporary text buffer
 
     // Read url.txt file for words
     while (fscanf(url_info, "%s", temp) != EOF) {
-        char *word = malloc(strlen(temp) + 1);
-        strcpy(word, temp);
-        word = normalise(word);
-        // insert key into tree
-        inv_tree = BSTreeInsert(inv_tree, word);
-        // insert url into urlSet at the right node
-        BSTNode *t = BSTreeFind(inv_tree, word));
-        t->urlSet = SetInsert(inv_tree->urlSet, url);
+            char *word = malloc(strlen(temp) + 1);
+            strcpy(word, temp);
+            if (strcmp(word, "#start") != 0 && strcmp(word, "#end") != 0
+                && strstr(word, "url") == NULL) {
+                word = normalise(word);
+                // insert key into tree
+                inv_tree = BSTreeInsert(inv_tree, word);
+                // insert url into urlSet at the right node
+                BSTNode *t = BSTreeFind(inv_tree, word));
+                t->urlSet = insertNode(t->urlSet, url);
+            }
+        }
     }
 
     free(word);
