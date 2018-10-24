@@ -50,8 +50,6 @@ int main(int argc, char *argv[]) {
         curr = curr->next;
     }
 
-    // bubble sort by match if not insertion sorted
-
     // output sorted urls less than 30
     searchNode *cur = ranked_urls;
     int i = 0;
@@ -60,6 +58,9 @@ int main(int argc, char *argv[]) {
         cur = cur->next;
         i ++;
     }
+
+    freeSet(matched_urls);
+    listFree(ranked_urls);
 
     return 0;
 }

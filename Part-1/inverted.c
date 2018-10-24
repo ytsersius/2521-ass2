@@ -12,6 +12,10 @@ int main (void) {
 
     FILE *fp = fopen("invertedIndex.txt", "w+");
     BSTreeInfix(inv_idx, fp);
+
+    freeSet(url_list);
+    dropBSTree(inv_idx);
+    
     fclose(fp);
 
     return 0;

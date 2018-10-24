@@ -1,5 +1,4 @@
 # 2521-ass2
-* Reminder: free all malloc'd variables at the end of every function
 
 Implementation of a simplified search engine
 By Steven Deng and Ying Zhong
@@ -23,10 +22,11 @@ By Steven Deng and Ying Zhong
 
 23/10
 - Finished pagerank.c
-- Finished tfidfList ADT 
+- Finished tfidfList ADT
 - Almost finished searchTfIdf.c
 
 Part 1 To do:
+ - Figure out a way to read relevant data under section2 in url**.txt files
  - Test BSTree ADT
  - Test GetInvertedList ()
  - Test inverted.c

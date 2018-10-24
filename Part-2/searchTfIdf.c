@@ -47,11 +47,11 @@ int main(int argc, char *argv[]) {
     while (curr != NULL) {
         curr_word = curr->matchWords;
         while (curr_word != NULL) {
-            char *url = curr->key; // if i want to strcpy i need to malloc
+/*            char *url = curr->key; // if i want to strcpy i need to malloc
             char *word = curr_word->key; // which is pretty ceebs
-        // ^ not sure if this will cause errors with pointers
+        // ^ not sure if this will cause errors with pointers */
             int url_count = curr_word->matchCount;
-            double tf = calculateTf(word, url);
+            double tf = calculateTf(curr_word->key, curr->key);
             double idf = calculateIdf(N, url_count);
             curr->tfidf += tf * idf;
 
@@ -64,6 +64,15 @@ int main(int argc, char *argv[]) {
     matched_urls = mergeSort(matched_urls);
 
     // print urls less than 30 with idf values
+    curr = matched_urls;
+    int i = 0;
+    while (i < MAX_RESULTS && curr != NULL) {
+        printf("%s %.6f \n", curr->key, curr->tfidf);
+        curr = curr->next;
+        i ++;
+    }
+
+    listFree(matched_urls);
 
     return 0;
 }
@@ -107,13 +116,9 @@ void GetMatchedURLs(FILE *inv_idx, tfidfList L, char *word) {
     }
 
     insertURLCount(L, url_count, word);
-}
 
-double calculateIdf(int N, int url_count) {
-    double quotient = N/url_count;
-    double idf = log10(quotient);
+    free(match_url);
 
-    return idf;
 }
 
 double calculateTf(char *word, char *url) {
@@ -146,4 +151,11 @@ double calculateTf(char *word, char *url) {
     fclose(d);
 
     return tf;
+}
+
+double calculateIdf(int N, int url_count) {
+    double quotient = N/url_count;
+    double idf = log10(quotient);
+
+    return idf;
 }
