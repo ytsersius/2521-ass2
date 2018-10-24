@@ -33,9 +33,9 @@ int main(int argc, char *argv[]) {
         if (isMatch(word, argv)) {
             GetMatchedURLs(inv_idx, matched_urls, word);
         }
+        free(word);
     }
 
-    free(word);
     fclose(inv_idx);
 
     if (matched_urls == NULL) {
@@ -113,11 +113,10 @@ void GetMatchedURLs(FILE *inv_idx, tfidfList L, char *word) {
             url_count ++;
         }
         buffer += pos;
+        free(match_url);
     }
 
     insertURLCount(L, url_count, word);
-
-    free(match_url);
 
 }
 
@@ -158,8 +157,8 @@ double calculateTf(char *word, char *url) {
 
     double tf = word_freq / total_terms;
 
-    free (url_fname);
     fclose(d);
+    free (url_fname);
 
     return tf;
 }

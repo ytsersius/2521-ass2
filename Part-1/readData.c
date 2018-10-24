@@ -26,9 +26,9 @@ Set GetCollection(void) {
         char *url_id = malloc(strlen(temp) + 1);
         url_id = strcpy(url_id, temp);
         SetInsert(url_list, url_id);
+        free (url_id);
     }
 
-    free (url_id);
     fclose(collection);
 
     return url_list;
@@ -76,9 +76,8 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
             e.w = v_out;
             insertEdge(g, e);
         }
+        free(out_url);
     }
-
-    free(out_url);
 }
 
 // Finds the vertex ID corresponding to a url
@@ -111,9 +110,8 @@ BSTree GetInvertedList(Set url_list) {
         fclose(url_info);
 
         curr = curr->next;
+        free(url_fname);
     }
-
-    free(url_fname);
 
     return inv_tree;
 }
