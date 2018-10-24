@@ -64,6 +64,13 @@ int main(int argc, char *argv[]) {
     matched_urls = mergeSort(matched_urls);
 
     // print urls less than 30 with idf values
+    curr = matched_urls;
+    int i = 0;
+    while (i < MAX_RESULTS && curr != NULL) {
+        printf("%s %.6f \n", curr->key, curr->tfidf);
+        curr = curr->next;
+        i ++;
+    }
 
     return 0;
 }
