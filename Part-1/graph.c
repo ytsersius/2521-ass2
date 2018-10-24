@@ -130,6 +130,9 @@ float Win (Graph g, Edge e) {
 float Ou (Graph g, Vertex v)    {
     assert(g->edges[v] != NULL);
     float out = nOutLL(g->edges[v]);
+    if (out == 0)   {
+        return 0.5;
+    }
     return out;
 }
 
@@ -147,57 +150,6 @@ float Wout (Graph g, Edge e) {
     float O_u = Ou(g, e.w);
     float sum_Op = sumOp(g, e.v);
     return O_u/sum_Op;
-}
-
-
-/*
-char *PageRankW (float d, float diffPR, int maxIterations)   {
-    int N = g->nV;
-	char PRWArray[N];
-
-    int i;
-	for (i = 0; i < N; i++)	{
-		PRWArray[i] = 1.0/N;
-	}
-
-	int iteration = 0;
-	float diff = diffPR;
-    i = 0;
-	while (iteration < maxIterations && diff >= diffPR)	{
-		for (i = 0; i < N; i++)	{
-			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages
-		}
-
-        iteration ++;
-	}
-    return PWArray;
-}*/
-
-float PageRank (float PR, float d, float diffPR, int maxIteration, Graph g, Vertex v)    {
-    
-    float diff = diffPR;
-    int N = g->nV;
-    int iteration = 0;
-
-    while (iteration < maxIteration && diff >= diffPR)  {
-        float temp = PR;
-        PR = (1-d)/N + d * sumPRWinWout(PR, d, diffPR, maxIteration, g, v);
-        for (int i = 0; i < N; i++) {
-            diff = diff + fabs(PR - temp);
-        }
-    }
-    
-    return PR;
-}
-
-float sumPRWinWout (float PR, float d, float diffPR, int maxIteration, Graph g, Vertex v)   {
-    char *array = inArray(g, v);
-    float sum = 0;
-    int i;
-    for (i = 0; i < Iu(g, v); i++)    { 
-        sum = sum + (PageRank(PR, d, diffPR, maxIteration, g, v) * Win(g, e) * Wout(g, e));
-    }
-    return sum;
 }
 
 // return array of incoming urls to a page
@@ -225,3 +177,32 @@ void printArray (Graph g, Vertex v) {
         printf("%d\n", ar[i]);
     }
 }
+
+// return PR*Win*Wout for a given edge
+float PRWinWout (float PR, Graph g, Edge e) {
+    return PR*Win(g, e)*Wout(g,e);
+}
+
+// return sum of PRWinWout for a page
+float sumPRWinWout (float PR, Graph g, Vertex v)   {
+    char *array = inArray(g, v);
+    float sum = 0;
+    int i;
+    Edge e;
+    for (i = 0; i < Iu(g, v); i++)    {
+        e.v = array[i];
+        e.w = v;
+        sum = sum + PRWinWout(PR, g, e);
+    }
+    return sum;
+}
+
+// return PageRank for a page
+float PageRank (Graph g, Vertex v, float PR, float d)    {
+    int N = g->nV;
+    float weightedPR;
+    weightedPR = ((1-d)/N) + (d * sumPRWinWout(PR, g, v));
+    return weightedPR;
+}
+
+    

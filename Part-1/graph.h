@@ -40,7 +40,8 @@ float sumOp (Graph, Vertex); //return sum of Op (W_out) of a page
 float Win (Graph, Edge); //return W_in of a page
 float Wout (Graph, Edge); //return W_out of a page
 char *inArray (Graph, Vertex); //return array of incoming urls of a page
-float sumPRWinWout (float, float, float, int, Graph, Vertex);
-float PageRank (float, float, float, int, Graph, Vertex);
+float PRWinWout (float, Graph, Edge); //return PR*Win*Wout for an edge
+float sumPRWinWout (float, Graph, Vertex); //return sum of PR*Win*Wout for a page
+float PageRank (Graph, Vertex, float, float); //return weighted pageRank for a page
 
 #endif
