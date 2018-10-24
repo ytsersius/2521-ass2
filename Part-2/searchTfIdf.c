@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     // Open invertedIndex.txt for reading
     FILE *inv_idx = fopen("invertedIndex.txt", "r");
 
-    tfidfList matched_URLs = newList();
+    tfidfList matched_urls = newList();
     char temp[100];
     // search for matching words
     while (fscanf(inv_idx, "%s", temp) != EOF) {
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         return ;
     }
 
-    tfidfNode *curr = matched_URLs;
+    tfidfNode *curr = matched_urls;
     tfidfNode *curr_word;
     while (curr != NULL) {
         curr_word = curr->matchWords;
@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
     }
 
     // sort by matches, then if matches ==, by tfidf
+    matched_urls = mergeSort(matched_urls);
 
     // print urls less than 30 with idf values
 
