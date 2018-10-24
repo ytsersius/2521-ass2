@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     while (curr != NULL) {
         curr_word = curr->matchWords;
         while (curr_word != NULL) {
-/*            char *url = curr->key; // if i want to strcpy i need to malloc
+        /*char *url = curr->key; // if i want to strcpy i need to malloc
             char *word = curr_word->key; // which is pretty ceebs
         // ^ not sure if this will cause errors with pointers */
             int url_count = curr_word->matchCount;
@@ -132,21 +132,32 @@ double calculateTf(char *word, char *url) {
     // read each word
     char temp[100];
     while(fscanf(d, "%s", temp) != EOF) {
-        char *term = malloc(strlen(temp) + 1);
-        term = strcpy(term, temp);
-        if (strcmp(term, word) == 0) {
+        char *term1 = malloc(strlen(temp) + 1);
+        term1 = strcpy(term1, temp);
+        if (strcmp(term1, word) == 0) {
             word_freq ++;
         }
-        // this condition needs to be modified lol
-        if (strcmp(term, "#start") != 0 && strcmp(term, "#end") != 0
-            && strstr(term, "url") == NULL) {
+
+        fscanf(d, "%s", temp);
+        char *term2 = malloc(strlen(temp) + 1);
+        term2 = strcpy(term2, temp);
+        if (strcmp(term2, word) == 0) {
+            word_freq ++;
+        }
+
+        if (strcmp(term1, "#start") != 0 && strcmp(term1, "#end") != 0
+            && strstr(term1, "url") == NULL && strcmp(term2, "Section-1") != 0
+            && strcmp(term2, "Section-2") != 0) {
                 total_terms ++;
-            }
+                total_terms ++;
+        }
+
+        free(term1);
+        free(term2);
     }
 
     double tf = word_freq / total_terms;
 
-    free(term);
     free (url_fname);
     fclose(d);
 

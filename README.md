@@ -26,7 +26,6 @@ By Steven Deng and Ying Zhong
 - Almost finished searchTfIdf.c
 
 Part 1 To do:
- - Figure out a way to read relevant data under section2 in url**.txt files
  - Test BSTree ADT
  - Test GetInvertedList ()
  - Test inverted.c
