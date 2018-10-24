@@ -78,7 +78,7 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
         }
     }
 
-    //free(out_url); // not sure we need this again
+    free(out_url);
 }
 
 // Finds the vertex ID corresponding to a url
