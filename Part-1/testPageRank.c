@@ -49,15 +49,40 @@ int main () {
 
     
 
-    e.v = 1;
-    e.w = 0;
+    e.v = 0;
+    e.w = 1;
 
-    printf("Test W_in:\nsumIp: %f\nIu: %f\nWin: %f\n", sumIp(g, 1), Iu(g, 0), Win(g, e)); 
+    printf("Test W_in:\nsumIp: %f\nIu: %f\nWin: %f\n", sumIp(g, 0), Iu(g, 1), Win(g, e)); 
 
-    printf("Test W_out:\nSumOp: %f\nOu: %f\nWout: %f\n", sumOp(g, 1), Ou(g, 0), Wout(g, e));
+    printf("Test W_out:\nSumOp: %f\nOu: %f\nWout: %f\n", sumOp(g, 0), Ou(g, 1), Wout(g, e));
 
     printArray(g, 1);
 
+    float PR = 0.5;
+    e.v = 0;
+    e.w = 1;
+    float prw = PRWinWout(PR, g, e);
+    printf("Edge 0-1: %f\n", prw);
+
+    e.v = 2;
+    prw = PRWinWout(PR, g, e);
+    printf("Edge 2-1: %f\n", prw);
+
+    e.v = 3;
+    prw = PRWinWout(PR, g, e);
+    printf("Edge 3-1: %f\n", prw);
+
+    e.v = 4;
+    prw = PRWinWout(PR, g, e);
+    printf("Edge 4-1: %f\n", prw);
+
+    PR = 1.0/20;
+    float sumPRW = sumPRWinWout(PR, g, 1); 
+    printf("%.10f\n", sumPRW);
+
+    float d = 0.85;
+    float pageRankW = PageRank(g, 1, PR, d);
+    printf("%f\n", pageRankW);
     return 0;
 
 }
