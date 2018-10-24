@@ -43,6 +43,13 @@ int main () {
 
 	printArray(g, 1);
 
+    int N = 20;
+    float PRarray[N];
+    int i;
+    for (i = 0; i < N; i++) {
+        PRarray[i] = 1.0/N;
+        printf("%f\n", PRarray[i]);
+    }
 
     return 0;
 

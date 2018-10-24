@@ -10,10 +10,19 @@
 #include "graph.h"
 #include "readData.h"
 
-char *PageRankW (float d, float diffPR, int maxIterations)   {
+float *PageRankW (float d, float diffPR, int maxIterations)   {
     Set s = GetCollection();
     Graph g = GetGraph(s);
+    int N = g->nV;
 
+    float PRarray[N];
+    int i;
+
+    for (i = 0; i < N; i++) {
+        PRarray[i] = 1.0/N;
+    }
+
+    return PRarray;
 }
 
 // return PR*Win*Wout for a given edge

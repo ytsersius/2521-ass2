@@ -99,6 +99,32 @@ Connections nInOutLinks (Graph g, Vertex v) {
     return c;
 }
 
+// return array of incoming urls to a page
+char *inArray(Graph g, Vertex v)   {
+    char *in = malloc(nInLL(g->edges[v], v));
+    assert(in != NULL);
+
+    int i = 0;
+    int j = 0;
+    while (i < g->nV && g->edges[i] != NULL)    {
+        if (i != v && inLL(g->edges[i], v)) {
+            in[j] = i;
+            j++;
+        }   
+        i++;
+    }
+    return in;
+}
+
+// print array of incoming urls to a page
+void printArray (Graph g, Vertex v) {
+    char *ar = inArray(g, v);
+    int i;
+    for (i = 0; i < Iu(g, v); i++)    {
+        printf("%d\n", ar[i]);
+    }
+}
+
 float Iu (Graph g, Vertex v)    {
     float sum = 0;
     int i = 0;
@@ -128,7 +154,9 @@ float Win (Graph g, Edge e) {
 }
 
 float Ou (Graph g, Vertex v)    {
-    assert(g->edges[v] != NULL);
+    if (g->edges[v] == NULL)    {
+        return 0.5;
+    }
     float out = nOutLL(g->edges[v]);
     if (out == 0)   {
         return 0.5;
@@ -150,32 +178,6 @@ float Wout (Graph g, Edge e) {
     float O_u = Ou(g, e.w);
     float sum_Op = sumOp(g, e.v);
     return O_u/sum_Op;
-}
-
-// return array of incoming urls to a page
-char *inArray(Graph g, Vertex v)   {
-    char *in = malloc(nInLL(g->edges[v], v));
-    assert(in != NULL);
-
-    int i = 0;
-    int j = 0;
-    while (i < g->nV && g->edges[i] != NULL)    {
-        if (i != v && inLL(g->edges[i], v)) {
-            in[j] = i;
-            j++;
-        }   
-        i++;
-    }
-    return in;
-}
-
-// print array of incoming urls to a page
-void printArray (Graph g, Vertex v) {
-    char *ar = inArray(g, v);
-    int i;
-    for (i = 0; i < Iu(g, v); i++)    {
-        printf("%d\n", ar[i]);
-    }
 }
 
 // return PR*Win*Wout for a given edge
@@ -200,9 +202,30 @@ float sumPRWinWout (float PR, Graph g, Vertex v)   {
 // return PageRank for a page
 float PageRank (Graph g, Vertex v, float PR, float d)    {
     int N = g->nV;
-    float weightedPR;
-    weightedPR = ((1-d)/N) + (d * sumPRWinWout(PR, g, v));
-    return weightedPR;
+    PR = ((1.0-d)/N) + (d * sumPRWinWout(PR, g, v));
+    return PR;
 }
 
+// return array of page rank for all urls
+float *PageRankW (Graph g, float d, float diffPR, int maxIteration)   {
+    int N = g->nV;
+    float *PRarray = malloc(N*sizeof(float));
+    int i;
+    for (i = 0; i < N; i++) {
+        PRarray[i] = 1.0/N;
+    }
+    int iteration = 0;
+    float diff = diffPR;
     
+    while (iteration < maxIteration && diff >= diffPR)  {
+        float sumDiff = 0;
+        for (i = 0; i < g->nV; i++) {
+            float temp = PRarray[i];
+            PRarray[i] = PageRank(g, i, PRarray[i], d);
+            sumDiff = sumDiff + fabs(PRarray[i] - temp);
+        }
+        diff = sumDiff;
+        iteration++;
+    }
+    return PRarray;
+}

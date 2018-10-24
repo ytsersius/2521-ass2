@@ -8,30 +8,58 @@
 
 int main () {
 
-    Graph g = newGraph(20);
+    Graph g = newGraph(7);
     Edge e;
 
     e.v = 0;
     e.w = 1;
     insertEdge(g, e);
-    e.v = 1;
-    e.w = 0;
-    insertEdge(g, e);
-    e.v = 1;
+    e.v = 0;
     e.w = 2;
+    insertEdge(g,e);
+    e.v = 0;
+    e.w = 3;
+    insertEdge(g,e);
+
+    e.v = 1;
+    e.w = 4;
+    insertEdge(g, e);
+
+    e.v = 2;
+    e.w = 4;
+    insertEdge(g, e);
+    e.v = 2;
+    e.w = 5;
     insertEdge(g, e);
     e.v = 2;
     e.w = 1;
     insertEdge(g, e);
-    e.v = 3;
-    e.w = 1;
+    e.v = 2;
+    e.w = 6;
     insertEdge(g, e);
+
+    e.v = 3;
+    e.w = 0;
+    insertEdge(g, e);
+    e.v = 3;
+    e.w = 6;
+    insertEdge(g, e);
+    e.v = 3;
+    e.w = 5;
+    insertEdge(g, e);
+    e.v = 3;
+    e.w = 4;
+    insertEdge(g, e);
+
     e.v = 4;
     e.w = 1;
     insertEdge(g, e);
-    e.v = 0;
+    e.v = 4;
     e.w = 2;
-    insertEdge(g,e);
+    insertEdge(g, e);
+    e.v = 4;
+    e.w = 6;
+    insertEdge(g, e);
 
     Connections c = nInOutLinks(g, 1);
     printf("For Vertex 1:\nTotal no. of URLS\nfrom: %d\nto: %d\n", c.in, c.out);
@@ -49,12 +77,12 @@ int main () {
 
     
 
-    e.v = 0;
-    e.w = 1;
+    e.v = 1;
+    e.w = 4;
 
-    printf("Test W_in:\nsumIp: %f\nIu: %f\nWin: %f\n", sumIp(g, 0), Iu(g, 1), Win(g, e)); 
+    printf("Test W_in:\nsumIp: %f\nIu: %f\nWin: %f\n", sumIp(g, 1), Iu(g, 4), Win(g, e)); 
 
-    printf("Test W_out:\nSumOp: %f\nOu: %f\nWout: %f\n", sumOp(g, 0), Ou(g, 1), Wout(g, e));
+    printf("Test W_out:\nSumOp: %f\nOu: %f\nWout: %f\n", sumOp(g, 1), Ou(g, 4), Wout(g, e));
 
     printArray(g, 1);
 
@@ -83,6 +111,15 @@ int main () {
     float d = 0.85;
     float pageRankW = PageRank(g, 1, PR, d);
     printf("%f\n", pageRankW);
-    return 0;
+
+    float *array = PageRankW(g, d, 0.00001, 1000);
+
+    int i;
+    printf("Start of PRW\n");
+    for (i = 0; i < 20; i++) {
+        printf("%.7f\n", array[i]);
+    }
+
+    return 0;  
 
 }

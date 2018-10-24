@@ -11,6 +11,6 @@
 #include <ctype.h>
 
 Connections nInOutLinks (Graph, Vertex); //links to vertex
-double PageRankW (double, double, int);
+float *PageRankW (Graph, float, float, int);
 
 #endif

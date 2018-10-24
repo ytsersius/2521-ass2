@@ -82,7 +82,10 @@ int nOutLL(List L)    {
 
 //return no. of incoming links to vertex
 int nInLL(List L, Vertex v)   {
-    assert(L != NULL);
+    //assert(L != NULL);
+    if (L == NULL)  {
+        return 0;
+    }
     int in = 0;
     adjNode *curr = L;
     while (curr != NULL) {

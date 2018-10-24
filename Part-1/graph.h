@@ -43,5 +43,6 @@ char *inArray (Graph, Vertex); //return array of incoming urls of a page
 float PRWinWout (float, Graph, Edge); //return PR*Win*Wout for an edge
 float sumPRWinWout (float, Graph, Vertex); //return sum of PR*Win*Wout for a page
 float PageRank (Graph, Vertex, float, float); //return weighted pageRank for a page
+float *PageRankW (Graph, float, float, int);
 
 #endif
