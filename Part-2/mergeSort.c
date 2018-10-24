@@ -2,23 +2,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-/* Link list node */
-struct Node
-{
-	int data;
-	struct Node* next;
-};
-
 /* function prototypes */
-struct Node* SortedMerge(struct Node* a, struct Node* b);
-void FrontBackSplit(struct Node* source,
-		struct Node** frontRef, struct Node** backRef);
+struct tfidfNode* SortedMerge(struct tfidfNode* a, struct tfidfNode* b);
+void FrontBackSplit(struct tfidfNode* source,
+		struct tfidfNode** frontRef, struct tfidfNode** backRef);
 
 /* sorts the linked list by changing next pointers (not data) */
-void MergeSort(struct Node** headRef) {
-	struct Node* head = *headRef;
-	struct Node* a;
-	struct Node* b;
+void MergeSort(struct tfidftfidfNode** headRef) {
+	struct tfidfNode* head = *headRef;
+	struct tfidfNode* a;
+	struct tfidfNode* b;
 
 	/* Base case -- length 0 or 1 */
 	if ((head == NULL) || (head->next == NULL))
@@ -39,8 +32,8 @@ void MergeSort(struct Node** headRef) {
 
 /* See https://www.geeksforgeeks.org/?p=3622 for details of this
 function */
-struct Node* SortedMerge(struct Node* a, struct Node* b) {
-	struct Node* result = NULL;
+struct tfidfNode* SortedMerge(struct tfidfNode* a, struct tfidfNode* b) {
+	struct tfidfNode* result = NULL;
 
 	/* Base cases */
 	if (a == NULL)
@@ -63,19 +56,19 @@ struct Node* SortedMerge(struct Node* a, struct Node* b) {
 }
 
 /* UTILITY FUNCTIONS */
-/* Split the nodes of the given list into front and back halves,
+/* Split the tfidfNodes of the given list into front and back halves,
 	and return the two lists using the reference parameters.
-	If the length is odd, the extra node should go in the front list.
+	If the length is odd, the extra tfidfNode should go in the front list.
 	Uses the fast/slow pointer strategy. */
-void FrontBackSplit(struct Node* source,
-		struct Node** frontRef, struct Node** backRef)
+void FrontBackSplit(struct tfidfNode* source,
+		struct tfidfNode** frontRef, struct tfidfNode** backRef)
 {
-	struct Node* fast;
-	struct Node* slow;
+	struct tfidfNode* fast;
+	struct tfidfNode* slow;
 	slow = source;
 	fast = source->next;
 
-	/* Advance 'fast' two nodes, and advance 'slow' one node at each iteration */
+	/* Advance 'fast' two tfidfNodes, and advance 'slow' one tfidfNode at each iteration */
 	while (fast != NULL) {
 		fast = fast->next;
 		if (fast != NULL) {
@@ -91,37 +84,37 @@ void FrontBackSplit(struct Node* source,
 	slow->next = NULL; // I don't understand what this is for
 }
 
-/* Function to print nodes in a given linked list */
-void printList(struct Node *node) {
-	while(node!=NULL) {
-		printf("%d ", node->data);
-		node = node->next;
+/* Function to print tfidfNodes in a given linked list */
+void printList(struct tfidfNode *tfidfNode) {
+	while(tfidfNode!=NULL) {
+		printf("%d ", tfidfNode->data);
+		tfidfNode = tfidfNode->next;
 	}
 }
 
-/* Function to insert a node at the beginging of the linked list */
-void push(struct Node** head_ref, int new_data)
+/* Function to insert a tfidfNode at the beginging of the linked list */
+void push(struct tfidfNode** head_ref, int new_data)
 	{
-	/* allocate node */
-	struct Node* new_node =
-				(struct Node*) malloc(sizeof(struct Node));
+	/* allocate tfidfNode */
+	struct tfidfNode* new_tfidfNode =
+				(struct tfidfNode*) malloc(sizeof(struct tfidfNode));
 
 	/* put in the data */
-	new_node->data = new_data;
+	new_tfidfNode->data = new_data;
 
-	/* link the old list off the new node */
-	new_node->next = (*head_ref);
+	/* link the old list off the new tfidfNode */
+	new_tfidfNode->next = (*head_ref);
 
-	/* move the head to point to the new node */
-	(*head_ref) = new_node;
+	/* move the head to point to the new tfidfNode */
+	(*head_ref) = new_tfidfNode;
 }
 
 /* Drier program to test above functions*/
 int main()
 	{
 	/* Start with the empty list */
-	struct Node* res = NULL;
-	struct Node* a = NULL;
+	struct tfidfNode* res = NULL;
+	struct tfidfNode* a = NULL;
 
 	/* Let us create a unsorted linked lists to test the functions
 	Created lists shall be a: 2->3->20->5->10->15 */
