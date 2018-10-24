@@ -26,9 +26,9 @@ Set GetCollection(void) {
         char *url_id = malloc(strlen(temp) + 1);
         url_id = strcpy(url_id, temp);
         SetInsert(url_list, url_id);
+        free (url_id);
     }
 
-    free (url_id);
     fclose(collection);
 
     return url_list;
@@ -76,9 +76,8 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
             e.w = v_out;
             insertEdge(g, e);
         }
+        free(out_url);
     }
-
-    free(out_url);
 }
 
 // Finds the vertex ID corresponding to a url
@@ -111,9 +110,8 @@ BSTree GetInvertedList(Set url_list) {
         fclose(url_info);
 
         curr = curr->next;
+        free(url_fname);
     }
-
-    free(url_fname);
 
     return inv_tree;
 }
@@ -124,21 +122,31 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
 
     // Read url.txt file for words
     while (fscanf(url_info, "%s", temp) != EOF) {
-            char *word = malloc(strlen(temp) + 1);
-            word = strcpy(word, temp);
-            if (strcmp(word, "#start") != 0 && strcmp(word, "#end") != 0
-                && strstr(word, "url") == NULL) {
-                word = normalise(word);
-                // insert key into tree
-                inv_tree = BSTreeInsert(inv_tree, word);
-                // insert url into urlSet at the right node
-                BSTNode *t = BSTreeFind(inv_tree, word));
-                t->urlSet = insertNode(t->urlSet, url);
-            }
-        }
-    }
+        char *word1 = malloc(strlen(temp) + 1);
+        word1 = strcpy(word1, temp);
 
-    free(word);
+        fscanf(url_info, "%s", temp);
+        char *word2 = malloc(strlen(temp) + 1);
+        word2 = strcpy(word2, temp);
+        if (strcmp(word1, "#start") != 0 && strcmp(word1, "#end") != 0
+            && strstr(word1, "url") == NULL && strcmp(word2, "Section-1") != 0
+            && strcmp(word2, "Section-2") != 0) {
+            word1 = normalise(word1);
+            word2 = normalise(word2);
+            // insert key into tree
+            inv_tree = BSTreeInsert(inv_tree, word1);
+            inv_tree = BSTreeInsert(inv_tree, word2);
+            // insert url into urlSet at the right node
+            BSTNode *t = BSTreeFind(inv_tree, word1));
+            t->urlSet = insertNode(t->urlSet, url);
+
+            t = BSTreeFind(inv_tree, word2);
+            t->urlSet = insertNode(t->urlSet, url);
+        }
+
+        free(word1);
+        free(word2);
+    }
 }
 
 char *normalise(char *word) {
