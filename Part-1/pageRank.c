@@ -10,100 +10,6 @@
 #include "graph.h"
 #include "readData.h"
 
-int main (int argc, char* argv[])   {
-
-    float d, diffPR;
-    int maxIteration;
-
-    d = argv[1];
-    diffPR = argv[2];
-    maxIteration = argv[3];
-
-    float *PRWarray = PageRankW(g, d, diffPR, maxIteration);
-    
-
-}
-
-// return array of page rank for all urls
-float *PageRankW (Graph g, float d, float diffPR, int maxIteration)   {
-    int N = g->nV;
-    float *PRarray = malloc(N*sizeof(float));
-    int i;
-    for (i = 0; i < N; i++) {
-        PRarray[i] = 1.0/N;
-    }
-    int iteration = 0;
-    float diff = diffPR;
-    
-    while (iteration < maxIteration && diff >= diffPR)  {
-        float sumDiff = 0;
-        for (i = 0; i < g->nV; i++) {
-            float temp = PRarray[i];
-            PRarray[i] = PageRank(g, i, PRarray[i], d);
-            sumDiff = sumDiff + fabs(PRarray[i] - temp);
-        }
-        diff = sumDiff;
-        iteration++;
-    }
-    return PRarray;
-}
-
-// return PR*Win*Wout for a given edge
-float PRWinWout (float PR, Graph g, Edge e) {
-    return PR*Win(g, e)*Wout(g,e);
-}
-
-// return sum of PRWinWout for a page
-float sumPRWinWout (float PR, Graph g, Vertex v)   {
-    char *array = inArray(g, v);
-    float sum = 0;
-    int i;
-    Edge e;
-    for (i = 0; i < Iu(g, v); i++)    {
-        e.v = array[i];
-        e.w = v;
-        sum = sum + PRWinWout(PR, g, e);
-    }
-    return sum;
-}
-
-// return PageRank for a page
-float PageRank (Graph g, Vertex v, float PR, float d)    {
-    int N = g->nV;
-    float weightedPR;
-    weightedPR = ((1-d)/N) + (d * sumPRWinWout(PR, g, v));
-    return weightedPR;
-}
-
-
-
-
-// return array of incoming urls to a page
-char *inArray(Graph g, Vertex v)   {
-    char *in = malloc(nInLL(g->edges[v], v));
-    assert(in != NULL);
-
-    int i = 0;
-    int j = 0;
-    while (i < g->nV && g->edges[i] != NULL)    {
-        if (i != v && inLL(g->edges[i], v)) {
-            in[j] = i;
-            j++;
-        }   
-        i++;
-    }
-    return in;
-}
-
-// print array of incoming urls to a page
-void printArray (Graph g, Vertex v) {
-    char *ar = inArray(g, v);
-    int i;
-    for (i = 0; i < Iu(g, v); i++)    {
-        printf("%d\n", ar[i]);
-    }
-}
-
 Connections nInOutLinks (Graph g, Vertex v) {
     assert(g->edges[v] != NULL);
     Connections c;
@@ -167,4 +73,89 @@ float Wout (Graph g, Edge e) {
     float O_u = Ou(g, e.w);
     float sum_Op = sumOp(g, e.v);
     return O_u/sum_Op;
+}
+
+
+/*
+char *PageRankW (float d, float diffPR, int maxIterations)   {
+    int N = g->nV;
+	char PRWArray[N];
+
+    int i;
+	for (i = 0; i < N; i++)	{
+		PRWArray[i] = 1.0/N;
+	}
+
+	int iteration = 0;
+	float diff = diffPR;
+    i = 0;
+	while (iteration < maxIterations && diff >= diffPR)	{
+        // i corresponding to vertices in graph?
+		for (i = 0; i < N; i++)	{
+            calculate_Win();
+            calculate_Wout();
+			PRWArray[i] = (1.0-d)/N + d*sumIncomingPages*Win*Wout;
+            // incoming pages has PRWArray[j] <- need a function to see which incoming
+		}
+
+        // diff = pr_curr - pr_prev <- recursion? or just keep track of prev
+        // pr_prev = pr_curr;
+        // ^ intialise prev as 1 then update
+
+        iteration ++;
+	}
+    return PWArray;
+}*/
+
+float PageRank (float PR, float d, float diffPR, int maxIteration, Graph g, Vertex v)    {
+    
+    float diff = diffPR;
+    int N = g->nV;
+    int iteration = 0;
+
+    while (iteration < maxIteration && diff >= diffPR)  {
+        float temp = PR;
+        PR = (1-d)/N + d * sumPRWinWout(PR, d, diffPR, maxIteration, g, v);
+        for (int i = 0; i < N; i++) {
+            diff = diff + fabs(PR - temp);
+        }
+    }
+    
+    return PR;
+}
+
+float sumPRWinWout (float PR, float d, float diffPR, int maxIteration, Graph g, Vertex v)   {
+    char *array = inArray(g, v);
+    float sum = 0;
+    int i;
+    for (i = 0; i < Iu(g, v); i++)    { 
+        sum = sum + (PageRank(PR, d, diffPR, maxIteration, g, v) * Win(g, e) * Wout(g, e));
+    }
+    return sum;
+}
+
+// return array of incoming urls to a page
+char *inArray(Graph g, Vertex v)   {
+    char *in = malloc(nInLL(g->edges[v], v));
+    assert(in != NULL);
+
+    int i = 0;
+    int j = 0;
+    while (i < g->nV && g->edges[i] != NULL)    {
+        if (i != v && inLL(g->edges[i], v)) {
+            in[j] = i;
+            j++;
+        }   
+        i++;
+    }
+    return in;
+}
+
+// print array of incoming urls to a page
+void printArray (Graph g, Vertex v) {
+    char *ar = inArray(g, v);
+    int i;
+    for (i = 0; i < Iu(g, v); i++)    {
+        printf("%d\n", ar[i]);
+    }
 }

@@ -2,13 +2,29 @@
 #define PAGERANKLIST_H
 
 #include <stdbool.h>
-#include "pageRank.h"
 
-typedef struct Node *PRList;
+typedef struct ListRep *List;
+typedef int Vertex;
+typedef struct Node {
+    Vertex vID;
+    float PR;
+    struct Node *next;
+} Node;
 
-//Linked List Operations
-PRList insertLL(PRList, Vertex);
-PRList deleteLL(PRList, Vertex);
-bool inLL(PRList, int);
-void freeLL(PRList);
-void showLL(PRList);
+
+
+List newList(void);   //create new List
+
+void freeList(List);  //free List memory
+
+void ListInsert(List, Vertex, float);   //add value into List
+
+void ListDelete(List, Vertex);    //remove value from List
+
+void showList(List);
+
+void SelectionSort(List);
+
+void mMergeSort(List);
+
+#endif
