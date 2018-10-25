@@ -77,12 +77,12 @@ int main () {
 
     
 
-    e.v = 1;
-    e.w = 4;
+    e.v = 4;
+    e.w = 6;
 
-    printf("Test W_in:\nsumIp: %f\nIu: %f\nWin: %f\n", sumIp(g, 1), Iu(g, 4), Win(g, e)); 
+    printf("Edge 4-6:\nTest W_in:\nsumIp: %f\nIu: %f\nWin: %f\n", sumIp(g, 4), Iu(g, 6), Win(g, e)); 
 
-    printf("Test W_out:\nSumOp: %f\nOu: %f\nWout: %f\n", sumOp(g, 1), Ou(g, 4), Wout(g, e));
+    printf("Test W_out:\nSumOp: %f\nOu: %f\nWout: %f\n", sumOp(g, 4), Ou(g, 6), Wout(g, e));
 
     printArray(g, 1);
 
@@ -104,19 +104,19 @@ int main () {
     prw = PRWinWout(PR, g, e);
     printf("Edge 4-1: %f\n", prw);
 
-    PR = 1.0/20;
+    PR = 1.0/7;
     float sumPRW = sumPRWinWout(PR, g, 1); 
-    printf("%.10f\n", sumPRW);
+    printf("sumPRWinWout: %.10f\n", sumPRW);
 
     float d = 0.85;
     float pageRankW = PageRank(g, 1, PR, d);
-    printf("%f\n", pageRankW);
+    printf("PageRank: %f\n", pageRankW);
 
     float *array = PageRankW(g, d, 0.00001, 1000);
 
     int i;
     printf("Start of PRW\n");
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < 7; i++) {
         printf("%.7f\n", array[i]);
     }
 

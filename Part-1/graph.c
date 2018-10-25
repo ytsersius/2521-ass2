@@ -182,7 +182,7 @@ float Wout (Graph g, Edge e) {
 
 // return PR*Win*Wout for a given edge
 float PRWinWout (float PR, Graph g, Edge e) {
-    return PR*Win(g, e)*Wout(g,e);
+    return PR*Win(g, e)*Wout(g, e);
 }
 
 // return sum of PRWinWout for a page
@@ -216,7 +216,6 @@ float *PageRankW (Graph g, float d, float diffPR, int maxIteration)   {
     }
     int iteration = 0;
     float diff = diffPR;
-    
     while (iteration < maxIteration && diff >= diffPR)  {
         float sumDiff = 0;
         for (i = 0; i < g->nV; i++) {

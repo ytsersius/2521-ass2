@@ -43,11 +43,13 @@ Set newSet(void)    {
 }
 
 void freeSet(Set s) {
-    assert(s != NULL);
-    while (s->elems != NULL)    {
-        freeSet(s);
+    Node* tmp;
+    while (s->elems != NULL) {
+       tmp = s->elems;
+       s->elems = s->elems->next;
+       free(tmp->url);
+       free(tmp);
     }
-    free(s);
 }
 
 
@@ -55,6 +57,7 @@ void SetInsert(Set s, char *url) {
     assert(isValid(s));
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
+    new->url = malloc(sizeof(char*));
     new->url = strcpy(new->url, url);
     new->vID = s->nelems;
     new->next = s->elems;

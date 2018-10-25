@@ -20,4 +20,8 @@ int main()  {
     SetInsert(s, url);
 
     showSet(s);
+
+    freeSet(s);
+
+    return 0;
 }

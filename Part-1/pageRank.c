@@ -10,18 +10,41 @@
 #include "graph.h"
 #include "readData.h"
 
-float *PageRankW (float d, float diffPR, int maxIterations)   {
-    Set s = GetCollection();
-    Graph g = GetGraph(s);
+int main (int argc, char* argv[])   {
+
+    float d, diffPR;
+    int maxIteration;
+
+    d = argv[1];
+    diffPR = argv[2];
+    maxIteration = argv[3];
+
+    float *PRWarray = PageRankW(g, d, diffPR, maxIteration);
+    
+
+}
+
+// return array of page rank for all urls
+float *PageRankW (Graph g, float d, float diffPR, int maxIteration)   {
     int N = g->nV;
-
-    float PRarray[N];
+    float *PRarray = malloc(N*sizeof(float));
     int i;
-
     for (i = 0; i < N; i++) {
         PRarray[i] = 1.0/N;
     }
-
+    int iteration = 0;
+    float diff = diffPR;
+    
+    while (iteration < maxIteration && diff >= diffPR)  {
+        float sumDiff = 0;
+        for (i = 0; i < g->nV; i++) {
+            float temp = PRarray[i];
+            PRarray[i] = PageRank(g, i, PRarray[i], d);
+            sumDiff = sumDiff + fabs(PRarray[i] - temp);
+        }
+        diff = sumDiff;
+        iteration++;
+    }
     return PRarray;
 }
 
@@ -51,6 +74,7 @@ float PageRank (Graph g, Vertex v, float PR, float d)    {
     weightedPR = ((1-d)/N) + (d * sumPRWinWout(PR, g, v));
     return weightedPR;
 }
+
 
 
 
