@@ -7,17 +7,14 @@
 #include <assert.h>
 #include <string.h>
 #include "Set.h"
-#include "graph.h"
-#include "graphList.h"
 
 
 Set GetCollection(int argc, char *argv[]);
 int inCollection(char *string, Set s);
 int *TSize(int argc, char *argv[]);
-int *generateAlternatives(char *argv[], int index, int n);
+int *generateAlternatives(int argc, char *argv[], Set Collection, int *T_s, double minimum_distance, int *tried, int *p, int index);
 int GetTRank(char *T, char *c);
-double calculateTotalSFR(char *argv[], Set Collection, int *T_size,
-    int *p);
+double calculateTotalSFR(int argc, char *argv[], Set Collection, int *T_size, int *p);
 double calculateScaledFootrule(int T_c, int T_size, int p, int n);
 char *GetURL(Set Collection, int c);
 int *copyArray(int *p, int n);
@@ -37,9 +34,9 @@ int main(int argc, char* argv[]) {
 
     double minimum_distance = 1000; // int_max?
 
-    int *p_minimum = generateAlternatives(argv, Collection, T_s, minimum_distance, tried, p, 0);
+    int *p_minimum = generateAlternatives(argc, argv, Collection, T_s, minimum_distance, tried, p, 0);
 
-    minimum_distance =  calculateTotalSFR(argv, Collection, T_size, p_minimum);
+    minimum_distance =  calculateTotalSFR(argc, argv, Collection, T_s, p_minimum);
     printf("%f \n", minimum_distance);
 
     // print out urls in order of p_minimum[]
@@ -47,7 +44,7 @@ int main(int argc, char* argv[]) {
     Node *curr = Collection->elems;
     while (i < n) {
         // I'm not sure if this logic is right.
-        if (p[i] == curr->vid) {
+        if (p[i] == curr->id) {
             char* url = GetURL(Collection, i + 1);
             printf("%s \n", url);
             i ++;
@@ -59,14 +56,14 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-int *generateAlternatives(char *argv[], Set Collection, int *T_size,
-    double minimum, int *tried, int *p, int index) {
+int *generateAlternatives(int argc, char *argv[], Set Collection, int *T_size, double minimum, int *tried, int *p, int index) {
     int n = Collection->nelems;
+    int *p_minimum;
     if (index == n) {
-        double total = calculateTotalSFR(argv, Collection, T_size, p);
+        double total = calculateTotalSFR(argc, argv, Collection, T_size, p);
         if (total < minimum) {
             minimum = total;
-            int *p_minimum = copyArray(p, n);
+            p_minimum = copyArray(p, n);
         }
     }
 
@@ -77,8 +74,7 @@ int *generateAlternatives(char *argv[], Set Collection, int *T_size,
             p[index] = j;
             tried[j] = 1;
             // fill out the next index of p
-            generateAlternatives(argv, Collection, T_size,
-                minimum, tried, p, index + 1);
+            generateAlternatives(argc, argv, Collection, T_size, minimum, tried, p, index + 1);
             tried[j] = 0;
         }
     }
@@ -168,8 +164,7 @@ int GetTRank(char *T, char *c) {
 }
 
 // haven't tested
-double calculateTotalSFR(char *argv[], Set Collection, int *T_size,
-    int *p) {
+double calculateTotalSFR(int argc, char *argv[], Set Collection, int *T_size, int *p) {
 
     double totalSFR = 0;
     int n = Collection->nelems;
@@ -201,7 +196,6 @@ double calculateScaledFootrule(int T_c, int T_size, int p, int n) {
 
     if (p == 0 || n == 0 || T_size == 0) {
         printf("error, invalid parameters in calculate SFR \n");
-        return;
     }
 
     double SFRDistance = 0;
