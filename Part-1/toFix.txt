@@ -1,0 +1,7 @@
+FILE:
+
+1.
+BSTree.c & BSTree.h & inverted.c -> stack dump
+- multiple typedefs definition of BSTNode (BSTree and BSTLink)
+- function: newBSTree returns NULL -> used in inverted.c: changed to malloc (but doesn't resolve issue)
+- to do: fix structs definition

@@ -8,16 +8,6 @@
 #include <string.h>
 #include "BSTree.h"
 
-typedef struct BSTNode *BSTLink;
-
-typedef struct BSTNode {
-	char *key;
-	BSTSet urlSet;
-
-	BSTLink left;
-	BSTLink right;
-} BSTNode;
-
 typedef struct SetNode {
    char        *url;
    struct SetNode *next;
@@ -28,16 +18,23 @@ static BSTLink newBSTNode(char *word)
 {
 	BSTLink new = malloc(sizeof(BSTNode));
 	assert(new != NULL);
+	new->key = malloc(sizeof(char *));
 	new->key = strcpy(new->key, word);
 	new->urlSet = NULL;
 	new->left = new->right = NULL;
 	return new;
 }
 
+//NEED FIX
 // create a new empty BSTree
 BSTree newBSTree(void)
 {
-	return NULL;
+	BSTree t = malloc(sizeof(BSTNode));
+	t->key = malloc(sizeof(char*));
+	t->urlSet = malloc(sizeof(SetNode));
+	t->left = NULL;
+	t->right = NULL;
+	return t;
 }
 
 // free memory associated with BSTree
@@ -173,7 +170,7 @@ BSTree deleteRoot(BSTree t)
 		parent = succ;
 		succ = succ->left;
 	}
-	t->value = succ->value;
+	t->key = strcpy(t->key, succ->key);
 	free(succ);
 	if (parent == t)
 		parent->right = succ->right;
@@ -206,15 +203,18 @@ static SetNode *newNode (char *url)   {
 
 // Sorted node insert
 BSTSet insertNode (BSTSet S, char *url)   {
-    if (S == NULL)
+    if (S == NULL)	{
         return newNode(url);
-    if (strcmp(url, S->url) < 0)
+	}
+    if (!strcmp(url, S->url))	{
         SetNode *n = newNode(url);
         n->next = S;
         return n;
-    else if (strcmp(url, S->url) > 0)
+	}
+    else if (strcmp(url, S->url) > 0)	{
         S->next = insertNode(S->next, url);
-    else
+	}
+    else	{}
         // Avoids duplicates - don't need to check
     return S;
 }
@@ -224,7 +224,7 @@ BSTSet deleteNode (BSTSet S, char *url)   {
         return S;
     }
     if (strcmp(S->url, url) == 0)  {
-        SetNode *temp = s->next;
+        SetNode *temp = S->next;
         free(S);
         return temp;
     }
@@ -234,9 +234,9 @@ BSTSet deleteNode (BSTSet S, char *url)   {
 	return S;
 }
 
-void freeSet(BSTSet S) {
+void freeBSTSet(BSTSet S) {
     if (S != NULL)  {
-        freeSet(S->next);
+        freeBSTSet(S->next);
         free(S);
     }
 }

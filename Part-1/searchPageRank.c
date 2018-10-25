@@ -32,9 +32,7 @@ int main(int argc, char *argv[]) {
 
     fclose(inv_idx);
 
-    if (matched_urls == NULL) {
-        return ;
-    }
+    if (matched_urls == NULL) {}
 
     searchList ranked_urls = newList();
     // for each url
@@ -82,7 +80,7 @@ int isMatch(char *word, char *argv[]) {
 void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
     char line[1000];
     // Read a line and look for the word in the line
-    while (fgets(line, 1000, inv_idx) != EOF) {
+    while (fgets(line, 1000, inv_idx) != NULL) {
         if (strstr(line, word) != NULL) {
             break;
         }
@@ -96,7 +94,7 @@ void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
         match_url = strcpy(match_url, temp);
         // Store the urls in the set
         if (strstr(match_url, "url") != NULL) {
-            s = SetInsert(s, match_url);
+            SetInsert(s, match_url);
         }
         buffer += pos;
         free(match_url);

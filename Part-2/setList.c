@@ -10,17 +10,6 @@
 #include <string.h>
 #include "setList.h"
 
-typedef struct Node {
-   char        *url;
-   Vertex       vID;
-   struct Node *next;
-} Node;
-
-struct SetRep {
-	int     nelems;
-    Node    *elems;
-};
-
 // is set valid
 int isValid(Set s)  {
     if (s == NULL)  {

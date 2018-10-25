@@ -1,10 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
+#include <ctype.h>
 
-#include "Set.h"
+#include "setList.h"
 #include "BSTree.h"
 #include "readData.h"
+#include "inverted.h"
+#include "graph.h"
+#include "graphList.h"
 
 int main (void) {
     Set url_list = GetCollection();
@@ -21,13 +26,11 @@ int main (void) {
     return 0;
 }
 
-
-
 // Given a url list, generate an invertedList
 BSTree GetInvertedList(Set url_list) {
     BSTree inv_tree = newBSTree();
 
-    Node *curr = url_list->first;
+    Node *curr = url_list->elems;
     while (curr != NULL) {
         // Store the url file name into a variable
         char *url_fname = calloc(strlen(curr->url) + 5, sizeof(char));
@@ -66,7 +69,7 @@ void updateInvertedIndex(BSTree inv_tree, FILE *url_info, char *url) {
             inv_tree = BSTreeInsert(inv_tree, word1);
             inv_tree = BSTreeInsert(inv_tree, word2);
             // insert url into urlSet at the right node
-            BSTNode *t = BSTreeFind(inv_tree, word1));
+            BSTNode *t = BSTreeFind(inv_tree, word1);
             t->urlSet = insertNode(t->urlSet, url);
 
             t = BSTreeFind(inv_tree, word2);
@@ -84,10 +87,10 @@ char *normalise(char *word) {
     // because fscanf only reads up to a whitespace
     int i = 0;
     char *ptr = word;
-    while (isspace(word[i]) {
+    while (isspace(word[i]))     {
         word[i] = '\0';
-        ptr ++;
-        i ++;
+        ptr++;
+        i++;
     }
 
     word = ptr;
@@ -101,7 +104,7 @@ char *normalise(char *word) {
     // Convert all upper case to lower case
     i = 0;
     while (word[i] != '\0') {
-        if (word[i] >= 'A' && word[i] <= 'Z'){
+        if (word[i] >= 'A' && word[i] <= 'Z')   {
             int offset = word[i] -'A';
             word[i] = 'a' + offset;
         }
@@ -109,10 +112,9 @@ char *normalise(char *word) {
     }
 
     // Remove ending punctuation marks
-    if (word[size] != '.' && word[size] != ','
-        && word[size] != ';' && word[size] != '?') {
-            word[size] = '\0';
-        }
+    if (word[size] != '.' && word[size] != ',' && word[size] != ';' && word[size] != '?') {
+        word[size] = '\0';
+    }
 
     return word;
 }

@@ -5,6 +5,7 @@
 #define READDATA_H
 
 #include <stdio.h>
+#include "graph.h"
 
 // readData functions
 Set GetCollection(void);

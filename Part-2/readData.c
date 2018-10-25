@@ -11,7 +11,7 @@
 #include "graph.h"
 #include "graphList.h"
 #include "setList.h"
-#include "BSTree.h"
+//#include "BSTree.h"
 
 // TO DO:
 // - Test GetInvertedList (do this in inverted.c)
@@ -34,22 +34,23 @@ Set GetCollection(void) {
     return url_list;
 }
 
-// Given a set url_list build a graph out of outgoing links
-Graph GetGraph(Set url_list) {
+// Given a set s build a graph out of outgoing links
+Graph GetGraph(Set s) {
     // Create an empty graph with nNodes vertices
-    Graph url_graph = newGraph(url_list->nNodes);
+    Graph g = newGraph(s->nelems);
 
     // Traverse the set to read all url.txt files in the set
-    Node *curr = url_list->first;
+    Node *curr = s->elems;
+    char *url_fname;
     while (curr != NULL) {
         // Store the url file name into a variable
-        char *url_fname = calloc(strlen(curr->url) + 5, sizeof(char));
+        url_fname = calloc(strlen(curr->url) + 5, sizeof(char));
         sprintf(url_fname, "%s.txt", curr->url);
 
         // Read the url file and add outgoing links
         FILE *url_info = fopen(url_fname, "r");
         Vertex v = curr->vID;
-        updateGraph(url_graph, url_list, v, url_info);
+        updateGraph(g, s, v, url_info);
         fclose(url_info);
 
         curr = curr->next;
@@ -57,22 +58,23 @@ Graph GetGraph(Set url_list) {
 
     free(url_fname);
 
-    return url_graph;
+    return g;
 }
 
 // Given a url file, add outgoing links to the graph vertice
-void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
+void updateGraph(Graph g, Set s, Vertex from, FILE *url_info) {
     char temp[100];
 
     Edge e;
     e.v = from; // This is the current operating list
     // Read the url.txt file for outgoing links (word by word)
+    char *out_url;
     while (fscanf(url_info, "%s", temp) != EOF) {
-        char *out_url = malloc(strlen(temp) + 1);
+        out_url = malloc(strlen(temp) + 1);
         out_url = strcpy(out_url, temp);
         // If found an outgoing link
         if (strstr(out_url, "url") != NULL) {
-            Vertex v_out = findVertexID(url_list, out_url);
+            Vertex v_out = findVertexID(s, out_url);
             e.w = v_out;
             insertEdge(g, e);
         }
@@ -80,10 +82,12 @@ void updateGraph(Graph g, Set url_list, Vertex from, FILE *url_info) {
     }
 }
 
+
+
 // Finds the vertex ID corresponding to a url
 // Returns 0 if failed
 Vertex findVertexID(Set url_list, char *url) {
-    Node *curr = url_list->first;
+    Node *curr = url_list->elems;
     while (curr != NULL) {
         if (strcmp(url, curr->url) == 0) {
             return curr->vID;
@@ -94,6 +98,8 @@ Vertex findVertexID(Set url_list, char *url) {
     return 0;
 }
 
+
+/*
 // Given a url list, generate an invertedList
 BSTree GetInvertedList(Set url_list) {
     BSTree inv_tree = newBSTree();
@@ -187,3 +193,4 @@ char *normalise(char *word) {
 
     return word;
 }
+*/

@@ -6,10 +6,21 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+typedef int Vertex;
 
+typedef struct Node {
+   char        *url;
+   Vertex       vID;
+   struct Node *next;
+} Node;
+
+struct SetRep {
+	int     nelems;
+    Node    *elems;
+};
 typedef struct SetRep *Set;
 
-typedef int Vertex;
+
 
 Set newSet(void);   //create new set
 

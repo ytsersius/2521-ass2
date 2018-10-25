@@ -7,13 +7,6 @@
 #include <string.h>
 #include "searchList.h"
 
-typedef struct searchNode {
-   char        *link;
-   int          matches;
-   double       pageRank;
-   struct searchNode   *next;
-} searchNode;
-
 static searchNode *newNode (char *url, int matches, double pageRank) {
     searchNode *new = malloc(sizeof(searchNode));
     assert(new != NULL);
@@ -52,11 +45,11 @@ searchList listInsert (searchList L, char *url, int matches, double pageRank) {
         n->next = L;
         return n;
     }
-    else if(pagerank < L->pageRank) {
+    else if(pageRank < L->pageRank) {
         L->next = listInsert(L->next, url, matches, pageRank);
     }
 
-    else
+    else    {}
         // just in case of duplicate pagerank values
     return L;
 }

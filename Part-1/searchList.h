@@ -8,6 +8,13 @@
 
 typedef struct searchNode *searchList;
 
+typedef struct searchNode {
+   char        *link;
+   int          matches;
+   double       pageRank;
+   struct searchNode   *next;
+} searchNode;
+
 searchList newList(void);   //create new list
 
 searchList listInsert (searchList, char *, int, double);

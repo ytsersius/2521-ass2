@@ -10,6 +10,16 @@
 typedef struct BSTNode *BSTree;
 
 typedef struct SetNode *BSTSet;
+
+typedef struct BSTNode *BSTLink;
+
+typedef struct BSTNode {
+	char *key;
+	BSTSet urlSet;
+	BSTLink left;
+	BSTLink right;
+} BSTNode;
+
 // create an empty BSTree
 BSTree newBSTree();
 // free memory associated with BSTree
@@ -18,11 +28,11 @@ void dropBSTree(BSTree);
 void showBSTreeNode(BSTree, FILE *);
 
 // print values in infix order
-void BSTreeInfix(BSTree);
+void BSTreeInfix(BSTree, FILE *);
 // print values in prefix order
-void BSTreePrefix(BSTree);
+void BSTreePrefix(BSTree, FILE *);
 // print values in postfix order
-void BSTreePostfix(BSTree);
+void BSTreePostfix(BSTree, FILE *);
 
 // count #nodes in BSTree
 int BSTreeNumNodes(BSTree);
@@ -32,13 +42,13 @@ int BSTreeNumLeaves(BSTree);
 // insert a new value into a BSTree
 BSTree BSTreeInsert(BSTree, char *);
 // check whether a value is in a BSTree
-int BSTreeFind(BSTree, char *);
+BSTNode *BSTreeFind(BSTree, char *);
 // delete a value from a BSTree
 BSTree BSTreeDelete(BSTree, char *);
 
 // Set operations
 BSTSet insertNode (BSTSet, char *);
 BSTSet deleteNode (BSTSet, char *);
-void freeSet(BSTSet);
+void freeBSTSet(BSTSet);
 
 #endif
