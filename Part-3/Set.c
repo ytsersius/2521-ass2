@@ -10,17 +10,6 @@
 #include <string.h>
 #include "Set.h"
 
-typedef struct Node {
-   char        *url;
-   int          Trank;
-   struct Node *next;
-} Node;
-
-struct SetRep {
-	int     nelems;
-    Node    *elems;
-};
-
 // is set valid
 int isValid(Set s)  {
     if (s == NULL)  {
@@ -51,13 +40,12 @@ void freeSet(Set s) { // not sure this works
 }
 
 
-void SetInsert(Set s, char *url, int Trank) {
+void SetInsert(Set s, char *url) {
     assert(isValid(s));
     Node *new = malloc(sizeof(Node));
     assert(new != NULL);
     new->url = calloc(strlen(url), sizeof(char));
     new->url = strcpy(new->url, url);
-    new->Trank = Trank;
     new->next = s->elems;
     s->elems = new;
 	s->nelems++;
@@ -71,7 +59,7 @@ void showSet(Set s) {
     printf("Show Set:\n{\n");
     Node *curr;
     for (curr = s->elems; curr != NULL; curr = curr->next)  {
-        printf("url = %s, rank in T = %d\n", curr->url, curr->Trank);
+        printf("url = %s\n", curr->url);
     }
     printf("}\n");
 	printf("Size of the set: %d\n", s->nelems);
