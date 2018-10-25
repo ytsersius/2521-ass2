@@ -2,9 +2,9 @@
 #define GRAPHLIST_H
 
 #include <stdbool.h>
-#include "graph.h"
 
 typedef struct adjNode *List;
+typedef int Vertex;
 
 //Linked List Operations
 List insertLL(List, Vertex);

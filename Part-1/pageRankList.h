@@ -1,30 +1,41 @@
-#ifndef PAGERANKLIST_H
-#define PAGERANKLIST_H
+#ifndef PAGERANKList_H
+#define PAGERANKList_H
 
 #include <stdbool.h>
-
-typedef struct ListRep *List;
 typedef int Vertex;
-typedef struct Node {
+
+
+typedef struct PRNode {
     Vertex vID;
+    char *url;
     float PR;
-    struct Node *next;
-} Node;
+    struct PRNode *next;
+} PRNode;
+
+struct PRListRep {
+	int     nelems;
+    PRNode    *elems;
+};
+
+typedef struct PRListRep *PRList;
 
 
 
-List newList(void);   //create new List
 
-void freeList(List);  //free List memory
 
-void ListInsert(List, Vertex, float);   //add value into List
 
-void ListDelete(List, Vertex);    //remove value from List
+PRList newList(void);   //create new List
 
-void showList(List);
+void freeList(PRList);  //free List memory
 
-void SelectionSort(List);
+void ListInsert(PRList, Vertex, char *, float);   //add value into List
 
-void mMergeSort(List);
+void ListDelete(PRList, Vertex);    //remove value from List
+
+void showList(PRList);
+
+void SelectionSort(PRList);
+
+void mMergeSort(PRList);
 
 #endif

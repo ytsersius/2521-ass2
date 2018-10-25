@@ -7,8 +7,15 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include "graphList.h"
 
 typedef struct GraphRep *Graph;
+
+typedef struct GraphRep {
+   List *edges;  // array of lists
+   int    nV;     // #vertices
+   int    nE;     // #edges
+} GraphRep;
 
 typedef int Vertex;
 

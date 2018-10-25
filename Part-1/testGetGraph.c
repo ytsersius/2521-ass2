@@ -1,37 +1,30 @@
-// Implementation of functions to read data given from
-// url files.
-// Written by Steven Deng and Ying Zhong, October 2018
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include <ctype.h>
-
-#include "graph.h"
-#include "graphList.h"
 #include "setList.h"
-#include "readData.h"
-
-// TO DO:
-// - Test GetInvertedList (do this in inverted.c)
+#include "graph.h"
+#include "testGetGraph.h"
+#include "pageRank.h"
+#include "pageRankList.h"
 
 Set GetCollection(void) {
     FILE *collection = fopen("collection.txt", "r");
-    Set url_list = newSet();
+    Set s = newSet();
 
     char temp[100];
     // Read the url IDs into a variable
     while (fscanf(collection,"%s", temp) != EOF) {
         char *url_id = malloc(strlen(temp) + 1);
         url_id = strcpy(url_id, temp);
-        SetInsert(url_list, url_id);
+        SetInsert(s, url_id);
         free (url_id);
     }
 
     fclose(collection);
 
-    return url_list;
+    return s;
 }
 
 // Given a set s build a graph out of outgoing links
@@ -82,12 +75,10 @@ void updateGraph(Graph g, Set s, Vertex from, FILE *url_info) {
     }
 }
 
-
-
 // Finds the vertex ID corresponding to a url
 // Returns 0 if failed
-Vertex findVertexID(Set url_list, char *url) {
-    Node *curr = url_list->elems;
+Vertex findVertexID(Set s, char *url) {
+    Node *curr = s->elems;
     while (curr != NULL) {
         if (strcmp(url, curr->url) == 0) {
             return curr->vID;
@@ -98,3 +89,10 @@ Vertex findVertexID(Set url_list, char *url) {
     return 0;
 }
 
+int main()  {
+    Set s = GetCollection();
+    showSet(s);
+    Graph g = GetGraph(s);
+    showGraph(g);
+    return 0;
+}

@@ -4,21 +4,7 @@
 #include <string.h>
 #include "pageRankList.h"
 
-Node *newNode ()   {
-    Node *new = malloc(sizeof(Node));
-    assert(new != NULL);
-    new->vID = 0;
-    new->PR = 0;
-    new->next = NULL;
-    return new;
-}
-
-struct ListRep {
-	int     nelems;
-    Node    *elems;
-};
-
-int isValid(List L)  {
+int isValidPR(PRList L)  {
     if (L == NULL)  {
         return 0;
     }
@@ -30,16 +16,16 @@ int isValid(List L)  {
 // List Operations
 
 //  create new List
-List newList(void)    {
-    List L = malloc(sizeof(struct ListRep));
+PRList newList(void)    {
+    PRList L = malloc(sizeof(struct PRListRep));
     assert(L != NULL);
     L->nelems = 0;
     L->elems = NULL;
     return L;
 }
 
-void freeList(List L) {
-    Node* tmp;
+void freeList(PRList L) {
+    PRNode* tmp;
     while (L->elems != NULL) {
        tmp = L->elems;
        L->elems = L->elems->next;
@@ -48,26 +34,28 @@ void freeList(List L) {
 }
 
 
-void ListInsert(List L, Vertex v, float PR) {
-    assert(isValid(L));
-    Node *new = malloc(sizeof(Node));
+void ListInsert(PRList L, Vertex v, char *url, float PR) {
+    assert(isValidPR(L));
+    PRNode *new = malloc(sizeof(PRNode));
     assert(new != NULL);
     new->vID = v;
+    new->url = malloc(sizeof(char*));
+    new->url = strcpy(new->url, url);
     new->PR = PR;
     new->next = L->elems;
     L->elems = new;
 	L->nelems++;
 }
 
-void ListDelete(List L, Vertex v) {
+void ListDelete(PRList L, Vertex v) {
 }
 
-void showList(List L) {
-    assert(isValid(L));
+void showList(PRList L) {
+    assert(isValidPR(L));
     printf("Show List:\n{\n");
-    Node *curr;
+    PRNode *curr;
     for (curr = L->elems; curr != NULL; curr = curr->next)  {
-        printf("vID = %d - %f\n", curr->vID, curr->PR);
+        printf("vID = %d - %s - %f\n", curr->vID, curr->url, curr->PR);
     }
     printf("}\n");
 	printf("Size of the List: %d\n", L->nelems);
@@ -75,14 +63,14 @@ void showList(List L) {
 
 // =======Merge Sort========= start
 
-//Split the nodes of the given list into front and back halves, 
-void FrontBackSplit (Node* source, Node** frontRef, Node** backRef) { 
-    Node *fast; 
-    Node *slow; 
+//Split the PRNodes of the given List into front and back halves, 
+void FrontBackSplit (PRNode* source, PRNode** frontRef, PRNode** backRef) { 
+    PRNode *fast; 
+    PRNode *slow; 
     slow = source; 
     fast = source->next; 
   
-     //Advance 'fast' two nodes, and advance 'slow' one node 
+     //Advance 'fast' two PRNodes, and advance 'slow' one PRNode 
     while (fast != NULL)    { 
         fast = fast->next; 
         if (fast != NULL)   { 
@@ -91,16 +79,16 @@ void FrontBackSplit (Node* source, Node** frontRef, Node** backRef) {
         } 
     } 
   
-     //'slow' is before the midpoint in the list, so split it in two 
+     //'slow' is before the midpoint in the List, so split it in two 
     //at that point. 
     *frontRef = source; 
     *backRef = slow->next; 
     slow->next = NULL; 
 } 
 
-// merge two halves of the linked list
-Node *SortedMerge (Node *a, Node *b)    { 
-    Node *result = NULL; 
+// merge two halves of the linked List
+PRNode *SortedMerge (PRNode *a, PRNode *b)    { 
+    PRNode *result = NULL; 
      //Base cases 
     if (a == NULL)  {
         return b; 
@@ -120,36 +108,39 @@ Node *SortedMerge (Node *a, Node *b)    {
     return result; 
 } 
 
-//sorts the linked list by changing next pointers (not data) 
-void MergeSort(struct Node** headRef) { 
-    Node *head = *headRef; 
-    Node *a; 
-    Node *b; 
+//sorts the linked List by changing next pointers (not data) 
+void MergeSort(struct PRNode** headRef) { 
+    PRNode *head = *headRef; 
+    PRNode *a; 
+    PRNode *b; 
   
      //Base case -- length 0 or 1 
     if ((head == NULL) || (head->next == NULL)) { 
         return; 
     } 
-    // Split head into 'a' and 'b' sublists 
+    // Split head into 'a' and 'b' subLists 
     FrontBackSplit(head, &a, &b);  
-     //Recursively sort the sublists 
+     //Recursively sort the subLists 
     MergeSort(&a); 
     MergeSort(&b); 
-     //answer = merge the two sorted lists together 
+     //answer = merge the two sorted Lists together 
     *headRef = SortedMerge(a, b); 
 } 
 
 // return merge sort List
-void mMergeSort(List L)  {
+void mMergeSort(PRList L)  {
     MergeSort(&L->elems);
 }
 
 // ========Merge Sort========== end
 
+
+
+
 // ========Selection Sort=========== not used
 /*
-// swap data field of linked list 
-void swap (Node *p1, Node *p2)   {
+// swap data field of linked List 
+void swap (PRNode *p1, PRNode *p2)   {
 	float tempPR = p1->PR;
     Vertex tempvID = p1->vID;
 
@@ -159,11 +150,11 @@ void swap (Node *p1, Node *p2)   {
     p2->vID = tempvID;
 }
 
-// To sort the linked list 
+// To sort the linked List 
 void SelectionSort(List L)  {
-	Node *start = L->elems;
-	Node *traverse;
-	Node *max;
+	PRNode *start = L->elems;
+	PRNode *traverse;
+	PRNode *max;
 	
 	while (start->next != NULL)     {
 		max = start;

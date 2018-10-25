@@ -120,6 +120,8 @@ int main () {
         printf("%.7f\n", array[i]);
     }
 
+    
+
     return 0;  
 
 }
