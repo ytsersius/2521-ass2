@@ -1,8 +1,8 @@
 // Interface to setList
 // Written by Steven Deng and Ying Zhong, October 2018
 
-#ifndef SET_H
-#define SET_H
+#ifndef SETLIST_H
+#define SETLIST_H
 
 #include <stdio.h>
 #include <stdbool.h>

@@ -1,6 +1,7 @@
 // C code for linked list merged sort
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 /* function prototypes */
 struct tfidfNode* SortedMerge(struct tfidfNode* a, struct tfidfNode* b);
@@ -42,16 +43,34 @@ struct tfidfNode* SortedMerge(struct tfidfNode* a, struct tfidfNode* b) {
 		return(a);
 
 	/* Pick either a or b, and recur */
-	if (a->data <= b->data)
+	if (a->matchCount > b->matchCount)
 	{
 		result = a;
 		result->next = SortedMerge(a->next, b);
 	}
-	else
+
+	else if (a->matchCount < b->matchCount)
 	{
 		result = b;
 		result->next = SortedMerge(a, b->next);
 	}
+	else if (a->tfidf > b->tfidf) {
+		result = a;
+		result->next = SortedMerge(a->next, b);
+	}
+	else if (a->tfidf < b->tfidf) {
+		result = b;
+		result->next = SortedMerge(a, b->next);
+	}
+	else if (strcmp(a->key, b->key) < 0) {
+		result = a;
+		result->next = SortedMerge(a->next, b);
+	}
+	else {
+		result = b;
+		result->next = SortedMerge(a, b->next);
+	}
+
 	return(result);
 }
 
@@ -82,55 +101,4 @@ void FrontBackSplit(struct tfidfNode* source,
 	*frontRef = source;
 	*backRef = slow->next;
 	slow->next = NULL; // I don't understand what this is for
-}
-
-/* Function to print tfidfNodes in a given linked list */
-void printList(struct tfidfNode *tfidfNode) {
-	while(tfidfNode!=NULL) {
-		printf("%d ", tfidfNode->data);
-		tfidfNode = tfidfNode->next;
-	}
-}
-
-/* Function to insert a tfidfNode at the beginging of the linked list */
-void push(struct tfidfNode** head_ref, int new_data)
-	{
-	/* allocate tfidfNode */
-	struct tfidfNode* new_tfidfNode =
-				(struct tfidfNode*) malloc(sizeof(struct tfidfNode));
-
-	/* put in the data */
-	new_tfidfNode->data = new_data;
-
-	/* link the old list off the new tfidfNode */
-	new_tfidfNode->next = (*head_ref);
-
-	/* move the head to point to the new tfidfNode */
-	(*head_ref) = new_tfidfNode;
-}
-
-/* Drier program to test above functions*/
-int main()
-	{
-	/* Start with the empty list */
-	struct tfidfNode* res = NULL;
-	struct tfidfNode* a = NULL;
-
-	/* Let us create a unsorted linked lists to test the functions
-	Created lists shall be a: 2->3->20->5->10->15 */
-	push(&a, 15);
-	push(&a, 10);
-	push(&a, 5);
-	push(&a, 20);
-	push(&a, 3);
-	push(&a, 2);
-
-	/* Sort the above created Linked List */
-	MergeSort(&a);
-
-	printf("Sorted Linked List is: \n");
-	printList(a);
-
-	getchar();
-	return 0;
 }
