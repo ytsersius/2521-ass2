@@ -46,6 +46,7 @@ void SetInsert(Set s, char *url) {
     assert(new != NULL);
     new->url = calloc(strlen(url), sizeof(char));
     new->url = strcpy(new->url, url);
+    new->id = s->nelems;
     new->next = s->elems;
     s->elems = new;
 	s->nelems++;

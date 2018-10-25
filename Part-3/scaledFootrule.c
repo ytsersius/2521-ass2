@@ -11,7 +11,10 @@
 Set GetCollection(int argc, char *argv[]);
 int inCollection(char *string, Set s);
 int *TSize(int argc, char *argv[]);
-int GetTRank(char *T, char *url);
+int GetTRank(char *T, char *c);
+double calculateTotalSFR(char *argv[], Set Collection, int *T_size,
+    int *p);
+double calculateScaledFootrule(int T_c, int T_size, int p, int n);
 
 int main(int argc, char* argv[]) {
     if (argc <= 1) {
@@ -20,7 +23,6 @@ int main(int argc, char* argv[]) {
     }
 
     Set Collection = GetCollection(argc, argv);
-    int n = Collection->nelems;
 
     int *T_s = TSize(argc, argv);
 
@@ -82,14 +84,14 @@ int *TSize(int argc, char *argv[]) {
     return T_size;
 }
 
-int GetTRank(char *T, char *url) {
+int GetTRank(char *T, char *c) {
     int rank = 1;
 
     FILE *f = fopen(T, "r");
 
     char line[1000];
     while (fscanf(f, "%s", line) != EOF) {
-        if (strcmp(line, url) == 0) {
+        if (strcmp(line, c) == 0) {
             break;
         }
         rank ++;
@@ -98,4 +100,16 @@ int GetTRank(char *T, char *url) {
     fclose(f);
 
     return rank;
+}
+
+double calculateTotalSFR(char *argv[], Set Collection, int *T_size,
+    int *p) {
+
+        
+
+    }
+
+double calculateScaledFootrule(int T_c, int T_size, int p, int n) {
+
+
 }

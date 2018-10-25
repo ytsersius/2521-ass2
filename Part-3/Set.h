@@ -9,6 +9,7 @@
 
 typedef struct Node {
    char        *url;
+   int          id;
    struct Node *next;
 } Node;
 
