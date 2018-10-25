@@ -82,7 +82,7 @@ int isMatch(char *word, char *argv[]) {
 void GetMatchedURLs(FILE *inv_idx, Set s, char *word) {
     char line[1000];
     // Read a line and look for the word in the line
-    while (fgets(line, 1000, inv_idx)) {
+    while (fgets(line, 1000, inv_idx) != EOF) {
         if (strstr(line, word) != NULL) {
             break;
         }

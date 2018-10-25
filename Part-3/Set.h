@@ -7,14 +7,23 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+typedef struct Node {
+   char        *url;
+   struct Node *next;
+} Node;
+
+struct SetRep {
+	int     nelems;
+    Node    *elems;
+};
+
 typedef struct SetRep *Set;
-typedef struct Node Node;
 
 Set newSet(void);   //create new set
 
 void freeSet(Set);  //free set memory
 
-void SetInsert(Set, char *, int);   //add value into set
+void SetInsert(Set, char *);   //add value into set
 
 void SetDelete(Set, char *);    //remove value from set
 

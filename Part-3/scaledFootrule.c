@@ -6,102 +6,96 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include "Set.h"
 
-int totalSize(int argc, char *argv[]);
-int countLines(FILE *f);
-char **GetCollection(int argc, char *argv[]);
-int inArray(char *string, char *Collection[], int size);
-int CSize(char *Collection[]);
+Set GetCollection(int argc, char *argv[]);
+int inCollection(char *string, Set s);
 int *TSize(int argc, char *argv[]);
-int *GetRanks(char *argv[], int argc, char **Collection);
-
+int GetTRank(char *T, char *url);
 
 int main(int argc, char* argv[]) {
     if (argc <= 1) {
-        printf("Please enter url rank files");
+        printf("Please enter url rank files \n");
+        return 0;
     }
 
-    char **Collection = GetCollection(argc, argv);
+    Set Collection = GetCollection(argc, argv);
+    int n = Collection->nelems;
 
-    int n = CSize(Collection);
-
-    printf("n(cSize) is: %d", n);
-
-    int i;
-    for (i = 0; i < n; i ++) {
-        printf("%s \n", Collection[i]);
-    }
+    int *T_s = TSize(argc, argv);
 
     return 0;
 }
 
-int totalSize(int argc, char *argv[]) {
-    int size = 0;
+Set GetCollection(int argc, char *argv[]) {
+    Set Collection = newSet();
+
     int i = 1;
     while (i < argc) {
         FILE *ranks = fopen(argv[i], "r");
-        size = size + countLines(ranks);
-        fclose(ranks);
-        i ++;
-    }
 
-    return size;
-}
-
-int countLines(FILE *f) {
-    char line[1000];
-    int line_count = 0;
-    while (fgets(line, 1000, f)) {
-        line_count ++;
-    }
-
-    return line_count;
-}
-
-char **GetCollection(int argc, char *argv[]) {
-    int size = totalSize(argc, argv);
-    char Collection[size][1000];
-
-    int i = 1;
-    int j = 0;
-    while (i < argc) {
-        FILE *ranks = fopen(argv[i], "r");
-
-        char *line;
-        line = calloc(1000, sizeof(char));
-
-        while (fgets(line, 1000, ranks)) {
-            if (!inArray(line, Collection, size)) {
-                strcpy(Collection[j], line);
-                j ++;
+        char line[1000];
+        while (fscanf(ranks, "%s", line) != EOF) {
+            char *url = calloc(strlen(line) + 1, sizeof(char));
+            url = strcpy(url, line);
+            if (!inCollection(url, Collection)) {
+                SetInsert(Collection, url);
             }
+            free(url);
         }
 
+        fclose(ranks);
         i ++;
     }
 
     return Collection;
 }
 
-int inArray(char *string, char *Collection[], int size) {
-    int i = 0;
-    while (Collection[i] != NULL) {
-        if (strcmp(string, Collection[i]) == 0) {
+int inCollection(char *url_id, Set Collection) {
+    Node *curr = Collection->elems;
+    while (curr != NULL) {
+        if (strcmp(curr->url, url_id) == 0) {
             return 1;
         }
-        i ++;
+        curr = curr->next;
     }
 
     return 0;
 }
 
-int CSize(char **Collection) {
-    int size = 0;
-    int i = 0;
-    while (strstr(Collection[i],"url") != NULL){
-        size ++;
+int *TSize(int argc, char *argv[]) {
+    int *T_size = calloc((argc-1), sizeof(int));
+
+    int i = 1;
+    while (i < argc) {
+        FILE *T = fopen(argv[i], "r");
+
+        char line[1000];
+        while (fscanf(T, "%s", line) != EOF) {
+            T_size[i-1] ++;
+        }
+
+        fclose(T);
         i ++;
     }
 
-    return size;
+    return T_size;
+}
+
+int GetTRank(char *T, char *url) {
+    int rank = 1;
+
+    FILE *f = fopen(T, "r");
+
+    char line[1000];
+    while (fscanf(f, "%s", line) != EOF) {
+        if (strcmp(line, url) == 0) {
+            break;
+        }
+        rank ++;
+    }
+
+    fclose(f);
+
+    return rank;
 }
