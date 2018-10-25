@@ -8,13 +8,17 @@
 #include <string.h>
 #include "Set.h"
 
+
 Set GetCollection(int argc, char *argv[]);
 int inCollection(char *string, Set s);
 int *TSize(int argc, char *argv[]);
+int *generateAlternatives(int *p, int index, int n);
 int GetTRank(char *T, char *c);
 double calculateTotalSFR(char *argv[], Set Collection, int *T_size,
     int *p);
 double calculateScaledFootrule(int T_c, int T_size, int p, int n);
+char *GetURL(Set Collection, int c);
+int *copyArray(int *p, int n);
 
 int main(int argc, char* argv[]) {
     if (argc <= 1) {
@@ -23,12 +27,62 @@ int main(int argc, char* argv[]) {
     }
 
     Set Collection = GetCollection(argc, argv);
-
+    int n = Collection->nelems;
     int *T_s = TSize(argc, argv);
 
-    
+    int *p = calloc(n, sizeof(int));
+    int *tried = calloc(n, sizeof(int));
+
+    double minimum_distance = 1000; // int_max?
+
+    int *p_minimum = generateAlternatives(argv, Collection, T_s,
+        minimum, tried, p, 0);
+
+    minimum_distance =  calculateTotalSFR(argv, Collection, T_size, p_minimum);
+    printf("%f \n", minimum_distance);
+
+    // print out urls in order of p_minimum[]
+    int i = 0;
+    Node *curr = Collection->elems;
+    while (i < n) {
+        // I'm not sure if this logic is right.
+        if (p[i] == curr->vid) {
+            char* url = GetURL(Collection, i + 1);
+            printf("%s \n", url);
+            i ++;
+            curr = Collection->elems;
+        }
+        curr = curr->next;
+    }
 
     return 0;
+}
+
+int *generateAlternatives(char *argv[], Set Collection, int *T_size,
+    double minimum, int *tried, int *p, int index) {
+    int n = Collection->nelems;
+    if (index == n) {
+        double total = calculateTotalSFR(argv, Collection, T_size, p);
+        if (total < minimum) {
+            minimum = total;
+            int *p_minimum = copyArray(p, n);
+        }
+    }
+
+    // j represents all the possible rankings p
+    int j;
+    for (j = 1; j < n; j ++) {
+        if (!tried[j]) {
+            p[index] = j;
+            tried[j] = 1;
+            // fill out the next index of p
+            generateAlternatives(argv, Collection, T_size,
+                minimum, tried, p, index + 1);
+            tried[j] = 0;
+        }
+    }
+
+    return p_minimum; // I'm not sure this is where you return
 }
 
 Set GetCollection(int argc, char *argv[]) {
@@ -167,4 +221,15 @@ char *GetURL(Set Collection, int c) {
     }
 
     return NULL;
+}
+
+int *copyArray(int *p, int n) {
+    int *dest = calloc(n, sizeof(char));
+
+    int i;
+    for (i = 0; i < n; i ++) {
+        dest[i] = p[i];
+    }
+
+    return dest;
 }
