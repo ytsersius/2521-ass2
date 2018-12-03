@@ -6,8 +6,8 @@
 #include <string.h>
 #include <math.h>
 #include "readData.h"
-#include "setList.h"
 #include "tfidfList.h"
+
 
 #define MAX_RESULTS 30
 
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 int isMatch(char *word, char *argv[]) {
     int i = 1;
     while (argv[i] != NULL) {
-        if strcmp(word, argv[i] == 0) {
+        if (strcmp(word, argv[i]) == 0) {
             return 1;
         }
         i ++;

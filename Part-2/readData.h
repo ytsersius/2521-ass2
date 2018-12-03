@@ -5,6 +5,9 @@
 #define READDATA_H
 
 #include <stdio.h>
+#include "setList.h"
+#include "graph.h"
+#include "BSTree.h"
 
 // readData functions
 Set GetCollection(void);

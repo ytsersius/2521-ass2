@@ -8,6 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "readData.h"
 #include "graph.h"
 #include "graphList.h"
 #include "setList.h"

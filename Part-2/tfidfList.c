@@ -15,6 +15,17 @@ typedef struct tfidfNode {
    struct tfidfNode   *next;
 } tfidfNode;
 
+static tfidfNode *newMatchNode (char *word) {
+    tfidfNode *newMatch = malloc(sizeof(tfidfNode));
+    newMatch->key = strcpy(newMatch->key, word);
+    // update matchWords->matchCount in the body
+    newMatch->tfidf = 0;
+    newMatch->matchWords = NULL;
+    newMatch->next = NULL;
+
+    return newMatch;
+}
+
 static tfidfNode *newNode (char *key, char *word) {
     tfidfNode *new = malloc(sizeof(tfidfNode));
     assert(new != NULL);
@@ -25,17 +36,6 @@ static tfidfNode *newNode (char *key, char *word) {
     new->matchWords = newMatchNode(word);
 
     return new;
-}
-
-static tfidfNode *newMatchNode (char *word) {
-    tfidfNode *newMatch = malloc(sizeof(tfidfNode));
-    newMatch->key = strcpy(newMatch->key, word);
-    // update matchWords->matchCount in the body
-    newMatch->tfidf = 0;
-    newMatch->matchWords = NULL;
-    newMatch->next = NULL;
-
-    return newMatch;
 }
 
 tfidfList newList(void) {
